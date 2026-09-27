@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as E from '../engine.mjs';
+import {configureView,project,tileAt} from '../render.mjs';
+const fresh=()=>E.createGame();
+test('building charges once and rejects occupied, core and unaffordable cells',()=>{const g=fresh();const u=E.build(g,'wall',10,9);assert.ok(u);assert.equal(g.wood,152);assert.equal(E.build(g,'wall',10,9),false);assert.equal(g.wood,152);assert.equal(E.build(g,'wall',11,9),false);g.wood=0;assert.equal(E.build(g,'sun',10,10),false);assert.equal(g.star,50)});
+test('harvesting is finite and gives twenty wood per tree',()=>{const g=fresh(),t=g.trees[0];const w=g.wood;assert.ok(E.harvest(g,t.x,t.y));assert.ok(E.harvest(g,t.x,t.y));assert.equal(E.harvest(g,t.x,t.y),false);assert.equal(g.wood,w+20)});
+test('upgrades cap at three; repair never exceeds max hp',()=>{const g=fresh();g.wood=g.star=999;const u=g.units[0];assert.ok(E.upgrade(g,u.id));assert.ok(E.upgrade(g,u.id));assert.equal(E.upgrade(g,u.id),false);u.hp=u.maxHp-1;E.repair(g,u.id);assert.equal(u.hp,u.maxHp);assert.equal(E.repair(g,u.id),false)});
+test('wave cannot overlap and survival ends after six waves',()=>{const g=fresh();assert.ok(E.startWave(g));assert.equal(E.startWave(g),false);g.waveActive=false;g.wave=6;assert.equal(E.startWave(g),false)});
+test('victory requires six cleared waves AND restored moon',()=>{const g=fresh();g.star=999;E.restoreMoon(g);E.restoreMoon(g);E.restoreMoon(g);assert.equal(g.over,null);const h=fresh();h.cleared=6;h.star=999;E.restoreMoon(h);E.restoreMoon(h);assert.equal(h.over,null);E.restoreMoon(h);assert.equal(h.over,'win')});
+test('destroyed core loses, creative core survives',()=>{const g=fresh();g.core=0;E.update(g,.1);assert.equal(g.over,'lose');const c=E.createGame({creative:true});c.core=0;E.update(c,.1);assert.equal(c.over,null);c.wood=c.star=0;assert.ok(E.build(c,'prism',10,10))});
+test('save roundtrip preserves resources, units and seed',()=>{const g=fresh();E.build(g,'garden',10,10);E.update(g,.1);const h=E.load(E.save(g));assert.equal(h.wood,g.wood);assert.deepEqual(h.units,g.units);assert.equal(h.seed,g.seed);assert.equal(E.load('broken'),null)});
+test('isometric pointer maps terrain centers correctly at multiple zooms',()=>{for(const zoom of [.8,1,1.6]){const v={zoom,panX:17,panY:-23};configureView(v,1024,650);for(let x=1;x<21;x++)for(let y=1;y<17;y++){const p=project(v,x,y,15);assert.deepEqual(tileAt(v,p.x,p.y),{x,y})}}});

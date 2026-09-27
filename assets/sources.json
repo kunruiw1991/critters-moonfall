@@ -1,0 +1,32 @@
+{
+  "portraits": {
+    "source": "https://github.com/kunruiw1991/moonlight-snake-party",
+    "files": [
+      "critter_06_bobby.webp",
+      "critter_01_lunabat.webp",
+      "critter_07_hoppy.webp",
+      "critter_11_picky.webp",
+      "jj.webp",
+      "mikey.webp",
+      "critter_05_dogday.webp",
+      "critter_04_catnap.webp",
+      "critter_03_poppydash.webp",
+      "critter_08_craftycorn.webp",
+      "critter_10_kickin.webp",
+      "critter_02_sunnyfox.webp",
+      "critter_12_babachops.webp",
+      "critter_09_bubba.webp"
+    ]
+  },
+  "music": {
+    "source": "https://github.com/kunruiw1991/lumipop-kids-tv",
+    "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_02_golden_lyrics.mp4"
+  },
+  "procedural": [
+    "intro animation",
+    "voxel terrain",
+    "buildings",
+    "enemies",
+    "effects"
+  ]
+}
