@@ -7,7 +7,8 @@ An iPad-friendly isometric block-building survival game. A ten-second animated o
 - Tap a character card, then an empty tile to build. Tap trees twice for wood.
 - Tap a building to upgrade, repair or sell it. Drag to pan; pinch or use ± to zoom.
 - Wood builds your settlement; stars buy special units and restore the moon.
-- Survive six waves **and** restore all three moon pieces to win.
+- Survive six waves **and** restore all three moon pieces to win. Celebrate with fireworks, confetti, dancing Critters and a victory fanfare.
+- 🔥 ➜ starts the next harder level immediately. Cleared levels unlock permanently in this browser; use the 🌙 / 🔥 level selector on the home screen to replay them. ↻ retries the current level; 🏠 returns home.
 - ☀️ clears nearby enemies with a 30-second cooldown. ⏸ pauses and saves.
 - 🧸 mode offers unlimited building resources and manually started waves.
 
@@ -18,7 +19,7 @@ Large graphical controls; no reading required to begin. Autosave stays in this b
 Serve this directory with `python3 -m http.server 8000`, then open http://localhost:8000. No build step or dependencies.
 
 ```
-node --test tests/engine.test.mjs
+node --test tests/*.test.mjs
 node tests/balance.mjs
 ```
 

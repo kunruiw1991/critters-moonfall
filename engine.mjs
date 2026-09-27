@@ -15,8 +15,11 @@ const key=(x,y)=>y*W+x;
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 export const inside=(x,y)=>x>=0&&y>=0&&x<W&&y<H;
 export function random(g){g.seed=(Math.imul(g.seed,1664525)+1013904223)>>>0;return g.seed/4294967296}
-export function createGame({seed=731,creative=false}={}){
- const g={version:1,seed,creative,time:0,wood:170,star:50,core:700,maxCore:700,moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:30,units:[],enemies:[],trees:[],effects:[],nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
+export const levelNumber=n=>Number.isSafeInteger(n)&&n>0?n:1;
+export function nextLevel(g){return g.over==='win'&&!g.creative?levelNumber(g.level)+1:null}
+export function createGame({seed=731,creative=false,level=1}={}){
+ level=levelNumber(level);const bonus=Math.min(10,level-1);
+ const g={version:1,seed,creative,level,time:0,wood:170+bonus*20,star:50+bonus*5,core:700,maxCore:700,moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:30,units:[],enemies:[],trees:[],effects:[],nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(distance({x,y},CENTER)>5.5&&random(g)<.17)g.trees.push({x,y,hp:2});
  g.units.push(makeUnit(g,'sun',9,9),makeUnit(g,'mill',12,10));return g;
 }
@@ -32,11 +35,12 @@ export function sell(g,id){const i=g.units.findIndex(u=>u.id===id);if(i<0||g.ove
 export const moonCost=g=>[40,60,80][g.moon]??0;
 export function restoreMoon(g){if(g.over||g.moon>=3||(!g.creative&&g.star<moonCost(g)))return false;if(!g.creative)g.star-=moonCost(g);g.moon++;g.core=Math.min(g.maxCore,g.core+100);checkWin(g);return true}
 function checkWin(g){if(!g.creative&&g.cleared>=6&&g.moon===3&&g.core>0)g.over='win'}
-export function startWave(g){if(g.over||g.waveActive||(!g.creative&&g.wave>=6))return false;g.wave++;g.waveActive=true;g.remaining=5+g.wave*3;g.spawnClock=.1;g.breakTime=0;return true}
+export function startWave(g){if(g.over||g.waveActive||(!g.creative&&g.wave>=6))return false;g.wave++;g.waveActive=true;g.remaining=5+g.wave*3+Math.min(12,(levelNumber(g.level)-1)*2);g.spawnClock=.1;g.breakTime=0;return true}
 export function sunburst(g){if(g.over||g.sunCooldown>0)return false;g.sunCooldown=30;g.effects.push({kind:'sun',...CENTER,life:1});for(const e of g.enemies)if(distance(e,CENTER)<6)e.hp-=65;g.core=Math.min(g.maxCore,g.core+25);return true}
 function spawn(g){const wave=g.wave,n=g.remaining;let kind=n===1&&wave%6===0?'boss':wave>=3&&n%5===0?'brute':wave>=2&&n%3===0?'runner':'zombie';const edge=wave<=2?0:Math.floor(random(g)*4);let x,y;if(edge===0){x=0;y=3+Math.floor(random(g)*(H-6))}else if(edge===1){x=W-1;y=3+Math.floor(random(g)*(H-6))}else if(edge===2){x=3+Math.floor(random(g)*(W-6));y=0}else{x=3+Math.floor(random(g)*(W-6));y=H-1}
- const hp=(30+wave*6)*(kind==='boss'?20:kind==='brute'?3.6:kind==='runner'?.7:1);
- g.enemies.push({id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:kind==='runner'?1.12:kind==='boss'?.38:.63,damage:kind==='boss'?34:kind==='brute'?14:7,armor:kind==='boss'?.75:kind==='brute'?.8:0,cool:0,slowTime:0,path:[],repath:0});}
+ const difficulty=levelNumber(g.level)-1;
+ const hp=(1+difficulty*.18)*(30+wave*6)*(kind==='boss'?20:kind==='brute'?3.6:kind==='runner'?.7:1);
+ g.enemies.push({id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:(kind==='runner'?1.12:kind==='boss'?.38:.63)*Math.min(1.35,1+difficulty*.03),damage:(kind==='boss'?34:kind==='brute'?14:7)*(1+difficulty*.1),armor:kind==='boss'?.75:kind==='brute'?.8:0,cool:0,slowTime:0,path:[],repath:0});}
 // Weighted shortest path: walls divert the horde but can always be broken.
 function findPath(g,e){const sx=Math.round(e.x),sy=Math.round(e.y),start=key(sx,sy),goal=key(CENTER.x,CENTER.y),dist=new Float64Array(W*H).fill(Infinity),prev=new Int32Array(W*H).fill(-1),visited=new Uint8Array(W*H);dist[start]=0;
  const structures=new Map(g.units.map(u=>[key(u.x,u.y),u]));const trees=new Set(g.trees.map(t=>key(t.x,t.y)));
@@ -49,7 +53,7 @@ export function update(g,dt){if(g.over)return;dt=Math.min(.25,Math.max(0,dt));g.
   if(t.heal){for(const a of g.units)if(distance(a,u)<=t.range)a.hp=Math.min(a.maxHp,a.hp+t.heal*mult*dt);if(distance(u,CENTER)<=t.range)g.core=Math.min(g.maxCore,g.core+t.heal*.3*mult*dt)}
   if(t.damage&&u.cool<=0){const targets=g.enemies.filter(e=>e.hp>0&&distance(e,u)<=t.range);if(targets.length){const target=targets.reduce((a,b)=>distance(a,CENTER)<distance(b,CENTER)?a:b);u.cool=t.period;const boosted=g.units.some(b=>TYPES[b.type].boost&&distance(b,u)<=TYPES[b.type].range);const amount=t.damage*mult*(boosted?1.25:1);for(const e of g.enemies)if(e===target||(t.splash&&distance(e,target)<=t.splash)){e.hp-=amount*(t.pierce?1:1-e.armor);if(t.slow)e.slowTime=2}g.effects.push({kind:'shot',x:u.x,y:u.y,tx:target.x,ty:target.y,color:t.color,life:.18})}}
  }
- if(g.waveActive){g.spawnClock-=dt;if(g.remaining>0&&g.spawnClock<=0){spawn(g);g.remaining--;g.spawnClock=1.65}if(g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=25;g.wood=Math.min(999,g.wood+25);g.star=Math.min(999,g.star+15);g.core=Math.min(g.maxCore,g.core+35);g.effects.push({kind:'clear',...CENTER,life:2});checkWin(g)}}else if(!g.creative&&g.wave<6){g.breakTime-=dt;if(g.breakTime<=0)startWave(g)}
+ if(g.waveActive){g.spawnClock-=dt;if(g.remaining>0&&g.spawnClock<=0){spawn(g);g.remaining--;g.spawnClock=1.65}if(g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=25;g.wood=Math.min(999,g.wood+25+5*(levelNumber(g.level)-1));g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.core=Math.min(g.maxCore,g.core+35);g.effects.push({kind:'clear',...CENTER,life:2});checkWin(g)}}else if(!g.creative&&g.wave<6){g.breakTime-=dt;if(g.breakTime<=0)startWave(g)}
  for(const e of g.enemies){if(e.hp<=0)continue;e.cool=Math.max(0,e.cool-dt);e.slowTime=Math.max(0,e.slowTime-dt);e.repath-=dt;if(distance(e,CENTER)<.7){if(e.cool<=0){damage(g,null,e.damage);e.cool=1}continue}
   if(e.repath<=0||!e.path.length){e.path=findPath(g,e);e.repath=2.5+random(g)}
   const next=e.path[0];if(!next)continue;const obstacle=unitAt(g,next.x,next.y);
@@ -60,4 +64,4 @@ export function update(g,dt){if(g.over)return;dt=Math.min(.25,Math.max(0,dt));g.
  g.enemies=g.enemies.filter(e=>e.hp>0);g.units=g.units.filter(u=>u.hp>0);if(g.core<=0&&!g.creative){g.core=0;g.over='lose'}
 }
 export function save(g){return JSON.stringify({...g,effects:[]})}
-export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.effects=[];return g}catch{return null}}
+export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.effects=[];return g}catch{return null}}

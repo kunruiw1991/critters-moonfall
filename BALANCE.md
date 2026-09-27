@@ -30,3 +30,7 @@ The first two waves arrive from the left; later waves use all four edges. Runner
 | Basic sun turrets only | 3 losses, wave 6, about 414–429 seconds | This particular single-unit layout cannot defeat the armored boss |
 
 Mixed policy finished with full core health, suggesting considerable room for mistakes once support is established. These results are preliminary, not proof that every unit is equally useful. More player layouts and child playtests are needed before stronger balance claims. Creative mode removes resource pressure and core loss and lets the player choose when to spawn waves.
+
+## Difficulty progression
+
+Each victory unlocks the next level. A new level resets the map, moon and waves; there is no automatic restart while celebrating. Relative to level one, each extra level adds 18% base enemy health, 10% base attack and 3% movement speed (speed capped at +35%). Each wave gains two enemies per extra level, capped at twelve extra enemies. Starting resources add 20 wood / 5 stars per level up to ten increments. Wave-clear rewards add 5 wood / 2 stars per level. These initial curves make subsequent levels harder; higher-tier balance still needs player testing. Existing saves migrate to level one. Creative mode has no forced ending or difficulty unlock.
