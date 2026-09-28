@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGame,build,save,load,W,H,CENTER} from '../engine.mjs';
+import {LEVELS,levelInfo,musicForLevel,makeTerrain,walkable,movementFactor,encounterKind} from '../levels.mjs';
+test('six distinct maps have six distinct soundtrack sources',()=>{assert.equal(new Set(LEVELS.map((_,i)=>JSON.stringify(makeTerrain(i+1)))).size,6);assert.equal(new Set(LEVELS.map((_,i)=>musicForLevel(i+1))).size,6);assert.equal(levelInfo(7),LEVELS[0])});
+test('every walkable tile and spawn edge can reach the base on every map',()=>{for(let level=1;level<=6;level++){const g=createGame({level}),seen=new Set(),q=[CENTER];for(let i=0;i<q.length;i++){const {x,y}=q[i],key=y*W+x;if(seen.has(key))continue;seen.add(key);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<W&&ny<H&&walkable(g,nx,ny)&&!seen.has(ny*W+nx))q.push({x:nx,y:ny})}}for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(walkable(g,x,y))assert.ok(seen.has(y*W+x),`level ${level}: ${x},${y}`);for(const u of g.units)assert.ok(walkable(g,u.x,u.y));assert.ok(g.trees.every(t=>walkable(g,t.x,t.y)))}});
+test('water, lava and rock prohibit construction, bridges allow it',()=>{const river=createGame({level:2,creative:true});river.trees=[];assert.equal(build(river,'wall',6,3),false);assert.ok(build(river,'wall',6,4));assert.equal(build(createGame({level:4,creative:true}),'wall',6,5),false);assert.equal(build(createGame({level:5,creative:true}),'wall',5,5),false)});
+test('ice speeds enemies and stage six contains two final bosses',()=>{const g=createGame({level:3});assert.equal(movementFactor(g,{x:4,y:13}),1.25);assert.equal(encounterKind(6,6,8,'healer'),'boss')});
+test('map terrain survives save roundtrip and old saves retain their original open ground',()=>{const g=createGame({level:5});assert.deepEqual(load(save(g)).terrain,g.terrain);delete g.terrain;assert.ok(load(save(g)).terrain.every(t=>t==='grass'))});

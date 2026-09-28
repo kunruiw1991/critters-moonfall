@@ -40,3 +40,9 @@ Each victory unlocks the next level. A new level resets the map, moon and waves;
 Victory now occurs on the update that removes the last enemy from wave six, including summoned minions. No moon purchases are required; the moon completes automatically. Core destruction takes priority over victory. Old saves already past wave six also resolve on resume. Creative mode exposes a separate 🏁 finish button without unlocking survival difficulties.
 
 Spitters start in wave two, bombers in wave three, healers in wave four, summoners in wave five. Special roles replace regular spawns; summoners add at most two fragile minions each. Bomber windup lasts 1.5 seconds and shows a warning radius. Healing is limited to 3 HP/second per ally even with multiple healers. The updated nine-policy simulations still produce three mixed-policy wins, three economy-only losses and three basic-turret-only losses.
+
+## Campaign maps
+
+Water, lava and rock tiles cannot be built on or traversed. Bridges remain buildable and breakable player structures cannot permanently trap enemies. All walkable cells and spawn edges are checked for connectivity to the base. Ice grants enemies 25% movement speed; snow slows them 7%. Old saves without terrain keep their original open layout.
+
+Seed 731 campaign simulation, adapting blocked build locations: levels 1–5 won in 413, 435, 466, 471 and 514 seconds. The previous defense lost to the level-six double boss; adding two prisms and a second healer produced a win at 525 seconds. These are examples of feasible strategies, not proof of monotonic difficulty or complete balance across seeds.

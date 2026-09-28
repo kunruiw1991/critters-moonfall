@@ -20,7 +20,33 @@
   },
   "music": {
     "source": "https://github.com/kunruiw1991/lumipop-kids-tv",
-    "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_02_golden_lyrics.mp4"
+    "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_02_golden_lyrics.mp4",
+    "tracks": [
+      {
+        "file": "dh_02_golden_lyrics.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_02_golden_lyrics.mp4"
+      },
+      {
+        "file": "dh_01_soda_pop.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_01_soda_pop.mp4"
+      },
+      {
+        "file": "dh_04_what_it_sounds_like.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_04_what_it_sounds_like.mp4"
+      },
+      {
+        "file": "dh_03_takedown_finale.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_03_takedown_finale.mp4"
+      },
+      {
+        "file": "dh_05_your_idol_stage.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_05_your_idol_stage.mp4"
+      },
+      {
+        "file": "dh_08_golden_takedown.mp4",
+        "url": "https://kunruiw1991.github.io/lumipop-kids-tv/videos/dh_08_golden_takedown.mp4"
+      }
+    ]
   },
   "procedural": [
     "intro animation",

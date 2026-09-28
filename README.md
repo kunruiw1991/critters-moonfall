@@ -38,3 +38,18 @@ Character portraits are reused from the owner's existing Moonlight Snake Party c
 - 💚 Healer: heals nearby allies, not itself; overlapping healing does not stack. Splash damage helps break the group.
 - 🔮 Summoner: creates at most two weaker minions; the wave ends only when all minions are cleared.
 - 🌘 Nightmare CatNap: the armored final boss.
+
+## Six-map campaign
+
+| Level | Map | New challenge | In-game soundtrack from existing collection |
+|---|---|---|---|
+| 1 🌲 | Moonlit forest | Learn the economy and defend the base | Golden |
+| 2 🌉 | River bridges | Crossings funnel enemies; more spitters | Soda Pop |
+| 3 ❄️ | Icefield | Ice accelerates enemies; more runners | What It Sounds Like |
+| 4 🏜️ | Canyon | Rock barriers constrain buildings; more bombers | Takedown |
+| 5 🌋 | Lava rifts | Lava removes building space; more summoners | Your Idol |
+| 6 🏰 | Night castle | Stone obstacles, healers and two final bosses | Golden / Takedown mix |
+
+Victory unlocks the next map. After six, maps repeat with increasing enemy difficulty. Creative mode lets you select all six maps immediately using ◀ / ▶. Each map has a thumbnail, its own terrain palette and in-game music. Music uses existing repository video/audio tracks; no external player opens. Tracks repeat within their map.
+
+Run `node tests/campaign.mjs` for an example scripted route through all six stages.
