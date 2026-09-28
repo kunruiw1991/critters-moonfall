@@ -14,4 +14,4 @@ export function makeTerrain(level){const type=(level-1)%6,cells=[];for(let y=0;y
 export const terrainAt=(g,x,y)=>g.terrain?.[Math.round(y)*22+Math.round(x)]||'grass';
 export const walkable=(g,x,y)=>!['water','rock','lava'].includes(terrainAt(g,x,y));
 export const movementFactor=(g,e)=>terrainAt(g,e.x,e.y)==='ice'?1.25:terrainAt(g,e.x,e.y)==='snow'?.93:1;
-export function encounterKind(level,wave,n,fallback){const map=(level-1)%6;if(level>=6&&wave===6&&n===8)return 'boss';if(map===1&&wave>=2&&n%7===0)return 'spitter';if(map===2&&wave>=2&&n%4===0)return 'runner';if(map===3&&wave>=3&&n%6===0)return 'bomber';if(map===4&&wave>=4&&n%8===0)return 'summoner';if(map===5&&wave>=4&&n%8===0)return 'healer';return fallback}
+export function encounterKind(level,wave,n,fallback){const map=(level-1)%6;if(level>=3&&wave===1&&n===7)return 'bomber';if(level>=2&&wave===1&&n===5)return 'brute';if(level>=6&&wave===6&&n===8)return 'boss';if(map===1&&wave>=2&&n%7===0)return 'spitter';if(map===2&&wave>=2&&n%4===0)return 'runner';if(map===3&&wave>=3&&n%6===0)return 'bomber';if(map===4&&wave>=4&&n%8===0)return 'summoner';if(map===5&&wave>=4&&n%8===0)return 'healer';return fallback}
