@@ -17,7 +17,7 @@ export const movementFactor=(g,e)=>terrainAt(g,e.x,e.y)==='ice'?1.7:terrainAt(g,
 export const buildableTerrain=(g,x,y)=>walkable(g,x,y)&&!['ice','burrow','lava'].includes(terrainAt(g,x,y));
 export const spawnGates=level=>(level-1)%6===2?[[0,9],[11,0],[21,9],[11,17]]:(level-1)%6===3?[[3,6],[18,12],[11,2],[11,15]]:[];
 export function encounterKind(level,wave,n,fallback){
- if(level>=3){if(wave===6&&n===1)return 'boss';if(level>=6&&wave===6&&n===8)return 'boss';if(wave>=3&&n===8)return 'summoner';if(wave>=2&&n===4)return 'healer';if(n===5)return 'brute';if(n===7)return level>=4?'bomber':'spitter';if(wave>=2&&n===3)return 'spitter';}
+ if(level>=3){if(wave===6&&n===1)return 'boss';if(level>=6&&wave===6&&n===8)return 'boss';if(wave>=3&&n===8)return 'summoner';if(wave>=2&&n===4)return 'healer';if(n===5)return 'brute';if(n===7)return level>=4&&wave>=2?'bomber':'spitter';if(wave>=2&&n===3)return 'spitter';}
  if(wave<=2)return fallback==='runner'?'runner':'zombie';
  if(wave===3)return n===5?'brute':fallback==='runner'?'runner':'zombie';
  if(wave===4)return n===6?'spitter':n===5?'brute':fallback==='runner'?'runner':'zombie';

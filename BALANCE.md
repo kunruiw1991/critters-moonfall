@@ -101,3 +101,11 @@ New rapid occupies 2×1, prism 2×2, shield an L of three cells. Every tile chec
 Map 5 now has a crossable lava ring rather than impassable islands. Building on lava is forbidden. First contact permanently multiplies enemy current/max HP by 1.3, damage by 1.25 and speed by 1.15, once only. Fire ground aura and licking flames preserve each enemy's distinct silhouette. Saved fire status prevents reapplication.
 
 59 tests pass. Updated map-2 slow-build policy (including added material production) wins five seeds without upgrades/abilities. The six-map campaign now tests levels 1–4 with no palace purchases and levels 5–6 with attack/armor/production tier 2 plus supplies tier 1 (34 moons, affordable from the tested first four clears). All win on seed 731; remaining core HP 700/700/369/254/777/160. Level 3 ends with wood425/straw15/brick7: advanced resources are now genuinely spent. These are limited simulations, not a claim every layout will win.
+
+
+## v14: construction pacing and full-size architecture
+- Starting wood 125 / stars 35. Mill 0.55 wood/s; no passive wood or stars, no kill wood; trees give 12 wood total, wave clear gives 8 wood and no stars. Gardens produce straw only.
+- Stars by threat: normal 1, runner 2, brute 7, spitter 3, bomber 4, healer 4, summoner 6, summoned mini 0, boss 18. Fire adds one except minis. Rapid costs 24 stars, prism 55.
+- Existing six-wave structure, 20s preparation, 12s breaks and 1.65s spawn cadence retained. Map 4+ first wave introduces ranged spitter before explosive bomber on wave 2. Opening basic defenses earn stars for specialized anti-armor and support builds.
+- Full world-space prism citadel (2x2), twin ballista (2x1), and linked shield bastion (L). Geometry rotates with camera. Old single-cell buildings retain compatible models. Cards separate portrait, 2x2 resource grid, count, and actual footprint diagram.
+- Seed 731 reference strategy: maps 1–4 no palace purchases, maps 5–6 use the previously documented 34-moon upgrades. All win, 14–16 buildings alive; end wood 52–101, stars 20–45. This is a reference policy, not proof all strategies work. River regression across five seeds passes with a resource-first build order, no powers or upgrades.

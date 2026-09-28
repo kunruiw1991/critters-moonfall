@@ -10,5 +10,5 @@ for(const level of [1,2,3,4,5,6]){
    if(g.enemies.filter(e=>Math.hypot(e.x-11,e.y-9)<6).length>=3)sunburst(g);if(g.star>=moonCost(g)+45)restoreMoon(g)
   }update(g,.1)
  }
- console.log(JSON.stringify({level,seed,result:g.over,time:Math.round(g.time),core:Math.round(g.core),units:g.units.length,builds:index,wood:Math.round(g.wood),straw:Math.round(g.straw),brick:Math.round(g.brick),score:scoreGame(g).total,reward:settle(readPalace(null),g).earned}));
+ console.log(JSON.stringify({level,seed,result:g.over,time:Math.round(g.time),core:Math.round(g.core),units:g.units.length,builds:index,wood:Math.round(g.wood),star:Math.round(g.star),straw:Math.round(g.straw),brick:Math.round(g.brick),score:scoreGame(g).total,reward:settle(readPalace(null),g).earned}));
 }

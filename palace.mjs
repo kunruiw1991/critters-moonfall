@@ -1,4 +1,4 @@
-export const GOODS={attack:{icon:'⚔️',label:'月刃',effect:'⚔️ +8%',step:.08},armor:{icon:'🛡️',label:'玉甲',effect:'💚 +12%',step:.12},harvest:{icon:'🌾',label:'桂树',effect:'🌾🪵🧱 +10%',step:.1},supplies:{icon:'🎁',label:'玉兔行囊',effect:'🪵30 🌾15 🧱10 ✦10'}};
+export const GOODS={attack:{icon:'⚔️',label:'月刃',effect:'⚔️ +8%',step:.08},armor:{icon:'🛡️',label:'玉甲',effect:'💚 +12%',step:.12},harvest:{icon:'🌾',label:'桂树',effect:'🌾🪵🧱 +10%',step:.1},supplies:{icon:'🎁',label:'玉兔行囊',effect:'🪵20 🌾15 🧱10 ✦8'}};
 export const tiers=u=>Object.fromEntries(Object.keys(GOODS).map(k=>[k,Math.max(0,Math.min(3,Math.floor(Number(u?.[k])||0)))]));
 export function readPalace(raw){try{const p=JSON.parse(raw);return {moons:Math.max(0,Math.floor(Number(p?.moons)||0)),upgrades:tiers(p?.upgrades),best:p?.best&&typeof p.best==='object'?p.best:{}}}catch{return {moons:0,upgrades:tiers(),best:{}}}}
 export const price=(p,k)=>4+2*(p.upgrades[k]||0);
