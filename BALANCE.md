@@ -87,3 +87,6 @@ Old saved maps 3/4 migrate to new terrain without deleting buildings. Existing o
 Score no longer saturates buildings at 300 or resources at 200. Building score uses surviving health × level weight, materials retain weighted value, pace rewards faster clears, and challenge adds 25 per stage. Coin reward is 2 + floor(total/90), with no fixed eight-coin ceiling. Existing per-stage best-paid records continue preventing duplicate payouts; an improved replay pays its difference. Sample fresh-run rewards on seed 731 are 12,13,12,13,14,13. This is a measured sample, not fixed rewards.
 
 52 tests pass. The six-map campaign passes without palace purchases. tests/visuals.html is a read-only developer model/map gallery using production render functions, isolated from player saves.
+
+### Render dispatch correction (v12)
+Visual QA of the actual map exposed a pre-existing bug: wrapping enemies as render objects overwrote their `kind` with `enemy`, losing subtype information. The map now carries `enemyType` separately and uses it for mesh, palette, scale and CatNap boss dispatch. A regression test exercises the complete production renderer with all specialist types, not just the individual mesh function. 53 tests pass.

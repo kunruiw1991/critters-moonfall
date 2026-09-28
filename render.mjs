@@ -1,8 +1,8 @@
-import {levelInfo,terrainAt,spawnGates} from './levels.mjs?v=11';
-import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=11';
-import {catnap} from './intro.mjs?v=11';
-import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=11';
-export {configureView,project,tileAt} from './camera.mjs?v=11';
+import {levelInfo,terrainAt,spawnGates} from './levels.mjs?v=12';
+import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=12';
+import {catnap} from './intro.mjs?v=12';
+import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=12';
+export {configureView,project,tileAt} from './camera.mjs?v=12';
 function ground(c,iso,x,y,color,sides=false){const corners=[[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]].map(([dx,dy])=>iso(x+dx,y+dy));if(sides)for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4];c.fillStyle=i%2?'#24372f':'#2a3d36';c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.lineTo(b.x,b.y-15);c.lineTo(a.x,a.y-15);c.closePath();c.fill()}c.beginPath();corners.forEach((p,i)=>i?c.lineTo(p.x,p.y-15):c.moveTo(p.x,p.y-15));c.closePath();c.fillStyle=color;c.fill();c.strokeStyle='#172d2525';c.lineWidth=.7;c.stroke()}
 function diamond(c,x,y,w,h,color){c.beginPath();c.moveTo(x,y-h/2);c.lineTo(x+w/2,y);c.lineTo(x,y+h/2);c.lineTo(x-w/2,y);c.closePath();c.fillStyle=color;c.fill()}
 function block(c,x,y,z,width,height,colors){const w=TW*width,h=TH*width,base=y-z; c.fillStyle=colors[1];c.beginPath();c.moveTo(x-w/2,base);c.lineTo(x,base+h/2);c.lineTo(x,base+h/2-height);c.lineTo(x-w/2,base-height);c.fill();c.fillStyle=colors[2];c.beginPath();c.moveTo(x,base+h/2);c.lineTo(x+w/2,base);c.lineTo(x+w/2,base-height);c.lineTo(x,base+h/2-height);c.fill();diamond(c,x,base-height,w,h,colors[0]);}
@@ -17,7 +17,7 @@ export function render(c,w,h,g,view,images,selectedType,selectedId,hover,time){
  const selected=g.units.find(u=>u.id===selectedId),range=selected?TYPES[selected.type].range:selectedType?TYPES[selectedType].range:null,pos=selected||(hover&&selectedType?hover:null);
  if(pos&&range){const p=iso(pos.x,pos.y);c.fillStyle='#dce7c119';c.strokeStyle='#e8e9b677';c.lineWidth=1.5;c.beginPath();c.ellipse(p.x,p.y-15,range*TW/Math.sqrt(2),range*TH/Math.sqrt(2),0,0,Math.PI*2);c.fill();c.stroke()}
  if(hover&&selectedType&&hover.x>0&&hover.y>0&&hover.x<W-1&&hover.y<H-1){const p=iso(hover.x,hover.y),valid=canBuild(g,selectedType,hover.x,hover.y);ground(c,iso,hover.x,hover.y,valid?'#d8f7a480':'#ec9b9380')}
- const objects=[...tiles.filter(t=>terrainAt(g,t.x,t.y)==='rock').map(t=>({...t,kind:'rock'})),...g.trees.map(t=>({...t,kind:'tree'})),...g.units.map(u=>({...u,kind:'unit'})),...g.enemies.map(e=>({...e,kind:'enemy'})),{...CENTER,kind:'core'}].sort((a,b)=>iso(a.x,a.y).y-iso(b.x,b.y).y);
+ const objects=[...tiles.filter(t=>terrainAt(g,t.x,t.y)==='rock').map(t=>({...t,kind:'rock'})),...g.trees.map(t=>({...t,kind:'tree'})),...g.units.map(u=>({...u,kind:'unit'})),...g.enemies.map(e=>({...e,enemyType:e.kind,kind:'enemy'})),{...CENTER,kind:'core'}].sort((a,b)=>iso(a.x,a.y).y-iso(b.x,b.y).y);
  for(const o of objects){const p=iso(o.x,o.y);p.y-=15;
  if(o.kind==='rock'){block(c,p.x,p.y,0,.86,22,['#8a8194','#5d556b','#4d485c']);continue}
  if(o.kind==='tree'){block(c,p.x,p.y,0,.17,28,['#97805a','#675b41','#594b37']);block(c,p.x,p.y,23,.8,18,['#72945d','#507248','#456640']);block(c,p.x,p.y,42,.55,16,['#86a365','#65874f','#547644']);continue}
@@ -36,7 +36,7 @@ export function render(c,w,h,g,view,images,selectedType,selectedId,hover,time){
  }
  avatar(c,images[t.portrait],p.x-20,p.y-10,9);if(o.hp<o.maxHp){c.fillStyle='#1a2c2f';c.fillRect(p.x-18,p.y-80,36,4);c.fillStyle='#abdaa3';c.fillRect(p.x-18,p.y-80,36*o.hp/o.maxHp,4)}if(o.id===selectedId){diamond(c,p.x,p.y+2,15,7,'#fff3af');c.fillStyle='#ffedab';c.font='12px sans-serif';c.textAlign='center';c.fillText('★'.repeat(o.level),p.x,p.y-84)}continue;
  }
- if(o.kind==='enemy'){const boss=o.kind==='boss',runner=o.kind==='runner',brute=o.kind==='brute';if(boss){catnap(c,p.x,p.y-26,.54,1,time);c.fillStyle='#182932';c.fillRect(p.x-30,p.y-100,60,5);c.fillStyle='#c7a3d8';c.fillRect(p.x-30,p.y-100,60*o.hp/o.maxHp,5)}else{const color=ENEMIES[o.kind]?.color||'#59c36a',width=brute?.48:o.kind==='bomber'?.42:.28;c.save();c.translate(p.x,p.y);const size=ENEMIES[o.kind]?.size||1;c.scale(size,size);heightZombie(c,0,0,time,o.id,color,width,o.kind);c.restore();if(o.fuse!=null){c.strokeStyle=Math.sin(time*18)>0?'#ffe0a0':'#f09b76';c.lineWidth=3;c.beginPath();c.ellipse(p.x,p.y,1.9*TW/Math.sqrt(2),1.9*TH/Math.sqrt(2),0,0,Math.PI*2);c.stroke()}if(o.slowTime>0){c.strokeStyle='#c4b0f4';c.beginPath();c.ellipse(p.x,p.y,11,5,0,0,Math.PI*2);c.stroke()}}
+ if(o.kind==='enemy'){const enemyType=o.enemyType;const boss=enemyType==='boss',runner=enemyType==='runner',brute=enemyType==='brute';if(boss){catnap(c,p.x,p.y-26,.54,1,time);c.fillStyle='#182932';c.fillRect(p.x-30,p.y-100,60,5);c.fillStyle='#c7a3d8';c.fillRect(p.x-30,p.y-100,60*o.hp/o.maxHp,5)}else{const color=ENEMIES[enemyType]?.color||'#59c36a',width=brute?.48:enemyType==='bomber'?.42:.28;c.save();c.translate(p.x,p.y);const size=ENEMIES[enemyType]?.size||1;c.scale(size,size);heightZombie(c,0,0,time,o.id,color,width,enemyType);c.restore();if(o.fuse!=null){c.strokeStyle=Math.sin(time*18)>0?'#ffe0a0':'#f09b76';c.lineWidth=3;c.beginPath();c.ellipse(p.x,p.y,1.9*TW/Math.sqrt(2),1.9*TH/Math.sqrt(2),0,0,Math.PI*2);c.stroke()}if(o.slowTime>0){c.strokeStyle='#c4b0f4';c.beginPath();c.ellipse(p.x,p.y,11,5,0,0,Math.PI*2);c.stroke()}}
  }
  }
  for(const f of g.effects){const p=iso(f.x,f.y);p.y-=15;c.globalAlpha=Math.min(1,f.life*3);if(f.kind==='shot'||f.kind==='spit'||f.kind==='mend'){const q=iso(f.tx,f.ty);c.strokeStyle=f.color||(f.kind==='mend'?'#edabc8':'#c8e576');c.lineWidth=2.5;c.beginPath();c.moveTo(p.x,p.y-51);c.lineTo(q.x,q.y-35);c.stroke()}else if(f.kind==='sun'){c.strokeStyle='#ffe29d';c.lineWidth=8;c.beginPath();c.ellipse(p.x,p.y,300*(1-f.life),150*(1-f.life),0,0,Math.PI*2);c.stroke()}else{c.font=f.kind==='clear'?'40px sans-serif':'22px sans-serif';c.fillStyle='#fff1c7';c.textAlign='center';c.fillText(f.kind==='output'?f.resource:f.kind==='wood'?'🪵':f.kind==='build'?'✦':f.kind==='clear'?'⭐':f.kind==='blast'?'💥':f.kind==='summon'?'🔮':'✧',p.x,p.y-40-(1-f.life)*15)}c.globalAlpha=1}
