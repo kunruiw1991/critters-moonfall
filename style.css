@@ -49,3 +49,5 @@
 @media(max-aspect-ratio:1/1){.palace-scenery{bottom:310px}.palace-hall{background:transparent;object-position:center center}.roof-rabbit{width:55px;top:25%}}
 @media(max-height:580px) and (min-aspect-ratio:1/1){.palace-scenery{bottom:140px}.roof-rabbit{width:48px;height:48px;top:21%}}
 @media(prefers-reduced-motion:reduce){.palace-hall,.roof-rabbit{animation:none}.roof-rabbit{left:62%;transform:translateY(-10px)}}
+
+#buildTotal{font-size:12px;white-space:nowrap;color:#e6d7ab}.build-card .capacity{font-size:11px}@media(max-width:700px){#buildTotal{position:absolute;right:10px;bottom:3px;font-size:10px}}

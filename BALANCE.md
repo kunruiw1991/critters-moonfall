@@ -90,3 +90,14 @@ Score no longer saturates buildings at 300 or resources at 200. Building score u
 
 ### Render dispatch correction (v12)
 Visual QA of the actual map exposed a pre-existing bug: wrapping enemies as render objects overwrote their `kind` with `enemy`, losing subtype information. The map now carries `enemyType` separately and uses it for mesh, palette, scale and CatNap boss dispatch. A regression test exercises the complete production renderer with all specialist types, not just the individual mesh function. 53 tests pass.
+
+## Material specialization, footprints and fire (v13)
+Per-map live cap 20, including starters. Per-type caps: sun 4, rapid 3, prism 2, wall 6, spring 3, bear 2, each producer 2, booster/shield 1. Old excess buildings survive, but block new construction until below limits.
+
+Recipes (wood/straw/brick/star): sun 25/15/0/15; rapid 15/35/20/10; prism 10/25/70/35; wall 10/0/16/0; spring 15/30/15/10; bear 15/35/20/20; mill 35/10/0/0; pig 25/0/0/0; kiln 20/25/10/0; boost 10/30/35/25; shield 10/20/55/30. Advanced upgrade bricks scale at full base recipe per tier, wood only 40%. Kilns use .35 wood and .7 straw per brick. Mills make .85 wood/s; ordinary kills give 1 wood and wave clears 15, reducing runaway wood rewards. Prism damage is 28 and HP 180 to justify its larger investment.
+
+New rapid occupies 2×1, prism 2×2, shield an L of three cells. Every tile checks terrain, bounds, core, trees, existing footprints and enemies before any payment. Picking any cell selects the building. Pathfinding considers all cells and melee can attack the far edge; destruction/selling releases the whole footprint. UI previews all cells, displays a footprint pictogram and the overall building count. Older saves retain original one-cell foundations without overlap; new constructions use the new shapes.
+
+Map 5 now has a crossable lava ring rather than impassable islands. Building on lava is forbidden. First contact permanently multiplies enemy current/max HP by 1.3, damage by 1.25 and speed by 1.15, once only. Fire ground aura and licking flames preserve each enemy's distinct silhouette. Saved fire status prevents reapplication.
+
+59 tests pass. Updated map-2 slow-build policy (including added material production) wins five seeds without upgrades/abilities. The six-map campaign now tests levels 1–4 with no palace purchases and levels 5–6 with attack/armor/production tier 2 plus supplies tier 1 (34 moons, affordable from the tested first four clears). All win on seed 731; remaining core HP 700/700/369/254/777/160. Level 3 ends with wood425/straw15/brick7: advanced resources are now genuinely spent. These are limited simulations, not a claim every layout will win.

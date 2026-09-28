@@ -13,7 +13,7 @@ test('every critter enforces its live cap, including starter units and creative 
   assert.equal(unitCount(load(save(g)),type),CAPS[type]-1);
  }
 });
-test('insufficient materials darken readiness independently of the cap',()=>{const g=createGame();assert.ok(buildReady(g,'wall'));g.brick=0;assert.equal(buildReady(g,'wall'),false);g.brick=12;assert.ok(buildReady(g,'wall'))});
+test('insufficient materials darken readiness independently of the cap',()=>{const g=createGame();assert.ok(buildReady(g,'wall'));g.brick=0;assert.equal(buildReady(g,'wall'),false);g.brick=16;assert.ok(buildReady(g,'wall'))});
 test('each campaign map awards one unique piece; defeat and creative never award',()=>{
  let p=[];for(let level=1;level<=6;level++){const g={level,over:'win',creative:false};p=awardPiece(p,g);assert.equal(p.length,level);assert.deepEqual(awardPiece(p,g),p)}
  assert.deepEqual(awardPiece(p,{level:7,over:'win'}),p);assert.deepEqual(awardPiece([],{level:1,over:'lose'}),[]);assert.deepEqual(awardPiece([],{level:1,over:'win',creative:true}),[]);

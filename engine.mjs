@@ -1,24 +1,28 @@
-import {tiers} from './palace.mjs?v=12';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates} from './levels.mjs?v=12';
+import {tiers} from './palace.mjs?v=13';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=13';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
- sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:45,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
- rapid:{name:'KickinChicken',icon:'🏹',portrait:'critter_10_kickin',role:'⚔️',wood:60,star:10,hp:105,range:4.2,damage:7,period:.28,color:'#ffe597'},
- prism:{name:'CraftyCorn',icon:'💎',portrait:'critter_08_craftycorn',role:'⚔️',wood:70,star:35,hp:115,range:6.2,damage:18,period:1.6,splash:1.5,slow:.5,pierce:true,color:'#bca6f9'},
+ sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:25,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
+ rapid:{name:'KickinChicken',icon:'🏹',portrait:'critter_10_kickin',role:'⚔️',wood:15,star:10,hp:140,range:4.2,damage:7,period:.28,color:'#ffe597'},
+ prism:{name:'CraftyCorn',icon:'💎',portrait:'critter_08_craftycorn',role:'⚔️',wood:10,star:35,hp:180,range:6.2,damage:28,period:1.6,splash:1.5,slow:.5,pierce:true,color:'#bca6f9'},
  wall:{name:'Mikey',icon:'🧱',portrait:'mikey',role:'🛡️',wood:10,star:0,hp:220,color:'#8bc98b'},
- spring:{name:'Hoppy',icon:'🌀',portrait:'critter_07_hoppy',role:'⚔️',wood:35,star:10,hp:100,range:1.8,damage:28,period:2.6,splash:1.8,color:'#8fddbc'},
- heal:{name:'Bobby BearHug',icon:'💗',portrait:'critter_06_bobby',role:'💗',wood:50,star:20,hp:115,range:2.8,heal:1,color:'#efa7bc'},
- mill:{name:'Bubba',icon:'🪵',portrait:'critter_09_bubba',role:'⚙️',wood:55,star:0,hp:110,produceWood:1.1,color:'#9ebfe9'},
- garden:{name:'PickyPiggy',icon:'🌾',portrait:'critter_11_picky',role:'🌾↑',wood:35,star:0,hp:95,produceStraw:.8,produceStar:.2,color:'#edb8bb'},
- kiln:{name:'BabaChops',icon:'🧱',portrait:'critter_12_babachops',role:'🧱↑',wood:45,star:0,hp:100,produceBrick:.45,color:'#cc9672'},
- boost:{name:'JJ',icon:'⚡',portrait:'jj',role:'⚡',wood:50,star:25,hp:130,range:3.6,boost:1.25,color:'#c6e299'},
- shield:{name:'Luna Bat',icon:'🛡️',portrait:'critter_01_lunabat',role:'🛡️',wood:60,star:30,hp:160,range:3.3,shield:.65,color:'#ab9ddb'}
+ spring:{name:'Hoppy',icon:'🌀',portrait:'critter_07_hoppy',role:'⚔️',wood:15,star:10,hp:100,range:1.8,damage:28,period:2.6,splash:1.8,color:'#8fddbc'},
+ heal:{name:'Bobby BearHug',icon:'💗',portrait:'critter_06_bobby',role:'💗',wood:15,star:20,hp:115,range:2.8,heal:1,color:'#efa7bc'},
+ mill:{name:'Bubba',icon:'🪵',portrait:'critter_09_bubba',role:'⚙️',wood:35,star:0,hp:110,produceWood:.85,color:'#9ebfe9'},
+ garden:{name:'PickyPiggy',icon:'🌾',portrait:'critter_11_picky',role:'🌾↑',wood:25,star:0,hp:95,produceStraw:.8,produceStar:.2,color:'#edb8bb'},
+ kiln:{name:'BabaChops',icon:'🧱',portrait:'critter_12_babachops',role:'🧱↑',wood:20,star:0,hp:100,produceBrick:.45,color:'#cc9672'},
+ boost:{name:'JJ',icon:'⚡',portrait:'jj',role:'⚡',wood:10,star:25,hp:130,range:3.6,boost:1.25,color:'#c6e299'},
+ shield:{name:'Luna Bat',icon:'🛡️',portrait:'critter_01_lunabat',role:'🛡️',wood:10,star:30,hp:160,range:3.3,shield:.65,color:'#ab9ddb'}
 };
-export const CAPS={sun:6,rapid:4,prism:6,wall:8,spring:4,heal:2,mill:3,garden:3,kiln:3,boost:2,shield:2};
+export const CAPS={sun:4,rapid:3,prism:2,wall:6,spring:3,heal:2,mill:2,garden:2,kiln:2,boost:1,shield:1};
+export const MAP_CAP=20;
+export const FOOTPRINTS={prism:[[0,0],[1,0],[0,1],[1,1]],rapid:[[0,0],[1,0]],shield:[[0,0],[1,0],[0,1]]};
+export const unitCells=u=>(u.cells||FOOTPRINTS[u.type]||[[0,0]]).map(([dx,dy])=>({x:u.x+dx,y:u.y+dy}));
+export const distanceToUnit=(p,u)=>Math.min(...unitCells(u).map(c=>Math.hypot(p.x-c.x,p.y-c.y)));
 export const unitCount=(g,type)=>g.units.filter(u=>u.type===type&&u.hp>0).length;
-export const buildReady=(g,type)=>!!TYPES[type]&&!g.over&&unitCount(g,type)<CAPS[type]&&afford(g,TYPES[type]);
+export const buildReady=(g,type)=>!!TYPES[type]&&!g.over&&g.units.filter(u=>u.hp>0).length<MAP_CAP&&unitCount(g,type)<CAPS[type]&&afford(g,TYPES[type]);
 export const MATERIALS=['wood','straw','brick','star'];
-const recipes={sun:[10,0],rapid:[18,0],prism:[0,22],wall:[0,12],spring:[16,0],heal:[20,8],mill:[0,0],garden:[0,0],kiln:[15,0],boost:[12,12],shield:[0,25]};
+const recipes={sun:[15,0],rapid:[35,20],prism:[25,70],wall:[0,16],spring:[30,15],heal:[35,20],mill:[10,0],garden:[0,0],kiln:[25,10],boost:[30,35],shield:[20,55]};
 for(const [type,t]of Object.entries(TYPES)){[t.straw,t.brick]=recipes[type]}
 export const afford=(g,c)=>g.creative||MATERIALS.every(k=>(g[k]||0)>=(c[k]||0));
 function pay(g,c){if(!g.creative)for(const k of MATERIALS)g[k]=(g[k]||0)-(c[k]||0)}
@@ -47,18 +51,19 @@ export const levelNumber=n=>Number.isSafeInteger(n)&&n>0?n:1;
 export function nextLevel(g){return g.over==='win'&&!g.creative?levelNumber(g.level)+1:null}
 export function createGame({seed=731,creative=false,level=1,upgrades={}}={}){
  level=levelNumber(level);upgrades=tiers(upgrades);const bonus=upgrades.supplies;
- const g={version:1,terrainRevision:2,seed,creative,level,upgrades,time:0,wood:170+bonus*30,star:50+bonus*10,straw:50+bonus*15,brick:35+bonus*10,core:Math.round(700*(1+upgrades.armor*.12)),maxCore:Math.round(700*(1+upgrades.armor*.12)),moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:PREP_SECONDS,units:[],enemies:[],trees:[],effects:[],terrain:makeTerrain(level),nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
+ const g={version:1,terrainRevision:3,seed,creative,level,upgrades,time:0,wood:170+bonus*30,star:50+bonus*10,straw:50+bonus*15,brick:35+bonus*10,core:Math.round(700*(1+upgrades.armor*.12)),maxCore:Math.round(700*(1+upgrades.armor*.12)),moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:PREP_SECONDS,units:[],enemies:[],trees:[],effects:[],terrain:makeTerrain(level),nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(distance({x,y},CENTER)>5.5&&buildableTerrain(g,x,y)&&random(g)<levelInfo(level).tree)g.trees.push({x,y,hp:2});
  g.units.push(makeUnit(g,'sun',9,9),makeUnit(g,'mill',12,10));
  g.units.push(makeUnit(g,'garden',10,10),makeUnit(g,'kiln',13,10));
  return g;
 }
-function makeUnit(g,type,x,y){return{id:g.nextId++,type,x,y,level:1,hp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),maxHp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),cool:0}}
-export function unitAt(g,x,y){return g.units.find(u=>u.x===x&&u.y===y)}
-export function canBuild(g,type,x,y){return !g.over&&buildReady(g,type)&&inside(x,y)&&buildableTerrain(g,x,y)&&x>0&&y>0&&x<W-1&&y<H-1&&distance({x,y},CENTER)>.8&&!unitAt(g,x,y)&&!g.trees.some(t=>t.x===x&&t.y===y)&&!g.enemies.some(e=>distance(e,{x,y})<.65)&&afford(g,TYPES[type])}
+function makeUnit(g,type,x,y){return{id:g.nextId++,type,x,y,level:1,cells:(FOOTPRINTS[type]||[[0,0]]).map(p=>[...p]),hp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),maxHp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),cool:0}}
+export function unitAt(g,x,y){return g.units.find(u=>u.hp>0&&unitCells(u).some(c=>c.x===x&&c.y===y))}
+export function canBuild(g,type,x,y){return buildReady(g,type)&&unitCells({type,x,y}).every(c=>inside(c.x,c.y)&&buildableTerrain(g,c.x,c.y)&&c.x>0&&c.y>0&&c.x<W-1&&c.y<H-1&&distance(c,CENTER)>.8&&!unitAt(g,c.x,c.y)&&!g.trees.some(t=>t.x===c.x&&t.y===c.y)&&!g.enemies.some(e=>distance(e,c)<.65))}
+
 export function build(g,type,x,y){if(!canBuild(g,type,x,y))return false;const t=TYPES[type];pay(g,t);const u=makeUnit(g,type,x,y);g.units.push(u);g.totalBuilt++;g.effects.push({kind:'build',x,y,life:.8});return u}
 export function harvest(g,x,y){const i=g.trees.findIndex(t=>t.x===x&&t.y===y);if(i<0||g.over)return false;g.trees[i].hp--;g.wood=Math.min(999,g.wood+10);g.effects.push({kind:'wood',x,y,life:.7});if(g.trees[i].hp<=0)g.trees.splice(i,1);return true}
-export function upgradeCost(u){return{wood:Math.ceil(TYPES[u.type].wood*.7*u.level),star:Math.max(8,Math.ceil(TYPES[u.type].star*.7*u.level)),straw:Math.ceil(TYPES[u.type].straw*.7*u.level),brick:Math.max(5,Math.ceil(TYPES[u.type].brick*.7*u.level))}}
+export function upgradeCost(u){return{wood:Math.ceil(TYPES[u.type].wood*.4*u.level),star:Math.max(8,Math.ceil(TYPES[u.type].star*.7*u.level)),straw:Math.ceil(TYPES[u.type].straw*.8*u.level),brick:Math.max(5,Math.ceil(TYPES[u.type].brick*u.level))}}
 export function upgrade(g,id){const u=g.units.find(u=>u.id===id);if(!u||u.level>=3||g.over)return false;const cost=upgradeCost(u);if(!afford(g,cost))return false;pay(g,cost);const missing=u.maxHp-u.hp;u.level++;u.maxHp=Math.round(TYPES[u.type].hp*(1+.5*(u.level-1))*perk(g,'armor',.12));u.hp=u.maxHp-missing;return true}
 export function repair(g,id){const u=g.units.find(u=>u.id===id);if(!canRepair(g,u))return false;pay(g,repairCost);u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.15);u.repairAt=g.time+8;return true}
 export function sell(g,id){const i=g.units.findIndex(u=>u.id===id);if(i<0||g.over)return false;const u=g.units[i];for(const k of MATERIALS)g[k]=Math.min(999,(g[k]||0)+Math.floor((TYPES[u.type][k]||0)*.5));g.units.splice(i,1);return true}
@@ -72,18 +77,19 @@ function spawn(g){const wave=g.wave,n=g.remaining;const kind=encounterKind(g.lev
  const gates=spawnGates(g.level);if(gates.length){const active=wave<=2?2:gates.length;[x,y]=gates[(n+wave)%active]}g.enemies.push(makeEnemy(g,kind,x,y));}
 // Weighted shortest path: walls divert the horde but can always be broken.
 function findPath(g,e){const sx=Math.round(e.x),sy=Math.round(e.y),start=key(sx,sy),goal=key(CENTER.x,CENTER.y),dist=new Float64Array(W*H).fill(Infinity),prev=new Int32Array(W*H).fill(-1),visited=new Uint8Array(W*H);dist[start]=0;
- const structures=new Map(g.units.map(u=>[key(u.x,u.y),u]));const trees=new Set(g.trees.map(t=>key(t.x,t.y)));
+ const structures=new Map(g.units.flatMap(u=>unitCells(u).map(c=>[key(c.x,c.y),u])));const trees=new Set(g.trees.map(t=>key(t.x,t.y)));
  const heap=[];const push=(k,d)=>{let i=heap.length;heap.push([k,d]);while(i>0){const p=(i-1)>>1;if(heap[p][1]<=d)break;heap[i]=heap[p];i=p}heap[i]=[k,d]};const pop=()=>{const first=heap[0],last=heap.pop();if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1][1]<heap[c][1])c++;if(last[1]<=heap[c][1])break;heap[i]=heap[c];i=c}heap[i]=last}return first};push(start,0);
  while(heap.length){const [best,min]=pop();if(visited[best])continue;if(best===goal)break;visited[best]=1;const x=best%W,y=Math.floor(best/W);for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(!inside(nx,ny)||!walkable(g,nx,ny))continue;const k=key(nx,ny),u=structures.get(k),cost=1+(u?Math.min(8,u.hp/(e.damage*4)):0)+(trees.has(k)?.7:0);if(dist[k]>min+cost){dist[k]=min+cost;prev[k]=best;push(k,dist[k])}}}
  const path=[];let k=goal;for(let n=0;n<W*H&&k!==start&&k!==-1;n++){path.push({x:k%W,y:Math.floor(k/W)});k=prev[k]}return k===start?path.reverse():[];}
 function damage(g,u,amount){const p=u||CENTER;const sheltered=g.units.some(s=>TYPES[s.type].shield&&distance(s,p)<=TYPES[s.type].range);const value=amount*(sheltered?.65:1);if(u){u.hp-=value;u.lastHit=g.time;}else if(!g.creative)g.core-=value}
 export function clearShot(g,a,b){const steps=Math.ceil(distance(a,b)*3);for(let i=1;i<steps;i++){const x=Math.round(a.x+(b.x-a.x)*i/steps),y=Math.round(a.y+(b.y-a.y)*i/steps);if(g.terrain?.[y*W+x]==='rock')return false}return true}
+export function igniteEnemy(g,e){if(e.ignited||terrainAt(g,e.x,e.y)!=='lava')return false;e.ignited=true;e.maxHp*=1.3;e.hp*=1.3;e.damage*=1.25;e.speed*=1.15;g.effects.push({kind:'ignite',x:e.x,y:e.y,life:.8});return true}
 export function update(g,dt){if(g.over)return;if(g.core<=0&&!g.creative){g.core=0;g.over='lose';return}dt=Math.min(.25,Math.max(0,dt));g.time+=dt;g.sunCooldown=Math.max(0,g.sunCooldown-dt);g.wood=Math.min(999,g.wood+.22*dt);g.star=Math.min(999,g.star+.1*dt);
  g.effects=g.effects.filter(f=>(f.life-=dt)>0);
  const repaired=new Set();
  for(const u of g.units){const t=TYPES[u.type],mult=1+.5*(u.level-1),production=mult*perk(g,'harvest',.1);u.producing=false;g.wood=Math.min(999,g.wood+(t.produceWood||0)*production*dt);g.star=Math.min(999,g.star+(t.produceStar||0)*production*dt);u.cool-=dt;
   if(t.produceStraw)g.straw=Math.min(999,g.straw+t.produceStraw*production*dt);
-  if(t.produceBrick){const amount=g.creative?t.produceBrick*production*dt:Math.min(t.produceBrick*production*dt,g.wood/1,g.straw/.7);u.producing=amount>0;g.brick=Math.min(999,g.brick+amount);if(!g.creative){g.wood-=amount;g.straw-=amount*.7}}
+  if(t.produceBrick){const amount=g.creative?t.produceBrick*production*dt:Math.min(t.produceBrick*production*dt,g.wood/.35,g.straw/.7);u.producing=amount>0;g.brick=Math.min(999,g.brick+amount);if(!g.creative){g.wood-=amount*.35;g.straw-=amount*.7}}
   if((t.produceWood||t.produceStraw||u.producing)&&g.time>=(u.outputAt||0)){u.outputAt=g.time+3;g.effects.push({kind:'output',resource:t.produceStraw?'🌾':t.produceBrick?'🧱':'🪵',x:u.x,y:u.y,life:1})}
 
   if(t.heal){const target=g.units.filter(a=>a.id!==u.id&&a.hp>0&&a.hp<a.maxHp&&!repaired.has(a.id)&&g.time-(a.lastHit??-100)>=3&&distance(a,u)<=t.range).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(target){const amount=Math.min(t.heal*(1+.25*(u.level-1))*dt,target.maxHp-target.hp,g.creative?Infinity:g.straw/.3);if(amount>0){target.hp+=amount;if(!g.creative)g.straw-=amount*.3;repaired.add(target.id);if(g.time>=(u.healEffectAt||0)){u.healEffectAt=g.time+1;g.effects.push({kind:'mend',x:u.x,y:u.y,tx:target.x,ty:target.y,life:.35})}}}}
@@ -91,20 +97,20 @@ export function update(g,dt){if(g.over)return;if(g.core<=0&&!g.creative){g.core=
  }
  if(g.waveActive){g.spawnClock-=dt;if(g.remaining>0&&g.spawnClock<=0){spawn(g);g.remaining--;g.spawnClock=1.65}}else if(!g.creative&&g.wave<6){g.breakTime-=dt;if(g.breakTime<=0)startWave(g)}
  const healed=new Set(),children=[];
- for(const e of g.enemies){if(e.hp<=0)continue;e.cool=Math.max(0,e.cool-dt);e.slowTime=Math.max(0,e.slowTime-dt);e.repath-=dt;
+ for(const e of g.enemies){if(e.hp<=0)continue;igniteEnemy(g,e);e.cool=Math.max(0,e.cool-dt);e.slowTime=Math.max(0,e.slowTime-dt);e.repath-=dt;
   if(e.kind==='healer')for(const ally of g.enemies)if(ally!==e&&ally.hp>0&&!healed.has(ally.id)&&distance(e,ally)<2.5){ally.hp=Math.min(ally.maxHp,ally.hp+3*dt);healed.add(ally.id)}
   if(e.kind==='summoner'&&(e.summons||0)<2){e.summonClock=(e.summonClock??7)-dt;if(e.summonClock<=0){e.summonClock=10;e.summons=(e.summons||0)+1;const child=makeEnemy(g,'mini',e.x,e.y);children.push(child);g.effects.push({kind:'summon',x:e.x,y:e.y,life:.8})}}
-  if(e.kind==='bomber'){const close=distance(e,CENTER)<1.6||g.units.some(u=>u.hp>0&&distance(e,u)<1.6);if(e.fuse!=null||close){e.fuse=(e.fuse??1.5)-dt;if(e.fuse<=0){for(const u of g.units)if(distance(e,u)<1.9)damage(g,u,e.damage*(u.type==='wall'?12:7));if(distance(e,CENTER)<1.9)damage(g,null,e.damage*3);e.hp=0;g.effects.push({kind:'blast',x:e.x,y:e.y,life:.9})}continue}}
-  if(e.kind==='spitter'&&e.cool<=0){const targets=g.units.filter(u=>u.hp>0&&distance(e,u)<=5.5).sort((a,b)=>(TYPES[b.type].produceStraw||TYPES[b.type].produceBrick?2:0)-(TYPES[a.type].produceStraw||TYPES[a.type].produceBrick?2:0)||distance(e,a)-distance(e,b)),target=targets[0];if(target||distance(e,CENTER)<=5.5){const p=target||CENTER;damage(g,target||null,e.damage);for(const u of g.units)if(u!==target&&distance(u,p)<1.6)damage(g,u,e.damage*.7);e.cool=2.2;g.effects.push({kind:'spit',x:e.x,y:e.y,tx:p.x,ty:p.y,life:.35});continue}}
+  if(e.kind==='bomber'){const close=distance(e,CENTER)<1.6||g.units.some(u=>u.hp>0&&distanceToUnit(e,u)<1.6);if(e.fuse!=null||close){e.fuse=(e.fuse??1.5)-dt;if(e.fuse<=0){for(const u of g.units)if(distanceToUnit(e,u)<1.9)damage(g,u,e.damage*(u.type==='wall'?12:7));if(distance(e,CENTER)<1.9)damage(g,null,e.damage*3);e.hp=0;g.effects.push({kind:'blast',x:e.x,y:e.y,life:.9})}continue}}
+  if(e.kind==='spitter'&&e.cool<=0){const targets=g.units.filter(u=>u.hp>0&&distanceToUnit(e,u)<=5.5).sort((a,b)=>(TYPES[b.type].produceStraw||TYPES[b.type].produceBrick?2:0)-(TYPES[a.type].produceStraw||TYPES[a.type].produceBrick?2:0)||distance(e,a)-distance(e,b)),target=targets[0];if(target||distance(e,CENTER)<=5.5){const p=target||CENTER;damage(g,target||null,e.damage);for(const u of g.units)if(u!==target&&distance(u,p)<1.6)damage(g,u,e.damage*.7);e.cool=2.2;g.effects.push({kind:'spit',x:e.x,y:e.y,tx:p.x,ty:p.y,life:.35});continue}}
 if(distance(e,CENTER)<.7){if(e.cool<=0){damage(g,null,e.damage);e.cool=1}continue}
   if(e.repath<=0||!e.path.length){e.path=findPath(g,e);e.repath=2.5+random(g)}
   const next=e.path[0];if(!next)continue;const obstacle=unitAt(g,next.x,next.y);
-  if(obstacle&&distance(e,obstacle)<1.15){if(e.cool<=0){damage(g,obstacle,e.damage);e.cool=1}continue}
+  if(obstacle&&distanceToUnit(e,obstacle)<1.15){if(e.cool<=0){damage(g,obstacle,e.damage);e.cool=1}continue}
   const d=distance(e,next),move=e.speed*movementFactor(g,e)*(e.slowTime>0?.5:1)*dt;if(d<=move){e.x=next.x;e.y=next.y;e.path.shift()}else{e.x+=(next.x-e.x)/d*move;e.y+=(next.y-e.y)/d*move}
  }
- for(const e of g.enemies)if(e.hp<=0){g.kills++;g.wood=Math.min(999,g.wood+(e.kind==='mini'?1:3));g.star=Math.min(999,g.star+(e.kind==='boss'?25:e.kind==='mini'?1:2));g.effects.push({kind:'poof',x:e.x,y:e.y,life:.5})}
+ for(const e of g.enemies)if(e.hp<=0){g.kills++;g.wood=Math.min(999,g.wood+(e.kind==='mini'?1:1));g.star=Math.min(999,g.star+(e.kind==='boss'?25:e.kind==='mini'?1:2));g.effects.push({kind:'poof',x:e.x,y:e.y,life:.5})}
  g.enemies=[...g.enemies.filter(e=>e.hp>0),...children];g.units=g.units.filter(u=>u.hp>0);if(g.core<=0&&!g.creative){g.core=0;g.over='lose';return}
- if(g.waveActive&&g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=BREAK_SECONDS;g.wood=Math.min(999,g.wood+25+5*(levelNumber(g.level)-1));g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.straw=Math.min(999,g.straw+8);g.brick=Math.min(999,g.brick+5);g.core=Math.min(g.maxCore,g.core+35);g.effects.push({kind:'clear',...CENTER,life:2})}checkWin(g);
+ if(g.waveActive&&g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=BREAK_SECONDS;g.wood=Math.min(999,g.wood+15);g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.straw=Math.min(999,g.straw+8);g.brick=Math.min(999,g.brick+5);g.core=Math.min(g.maxCore,g.core+35);g.effects.push({kind:'clear',...CENTER,life:2})}checkWin(g);
 }
 export function save(g){return JSON.stringify({...g,effects:[]})}
-export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.upgrades=tiers(g.upgrades);g.breakTime=Math.min(g.breakTime,g.wave===0?PREP_SECONDS:BREAK_SECONDS);g.straw=Number.isFinite(g.straw)?g.straw:50;g.brick=Number.isFinite(g.brick)?g.brick:35;if(!Array.isArray(g.terrain)||g.terrain.length!==W*H)g.terrain=Array(W*H).fill('grass');if([2,3].includes((g.level-1)%6)&&g.terrainRevision!==2){g.terrain=makeTerrain(g.level);for(const u of g.units)if(!buildableTerrain(g,u.x,u.y))g.terrain[u.y*W+u.x]='bridge';g.trees=g.trees.filter(t=>buildableTerrain(g,t.x,t.y));for(const e of g.enemies){e.path=[];e.repath=0}g.terrainRevision=2}g.effects=[];return g}catch{return null}}
+export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.upgrades=tiers(g.upgrades);g.breakTime=Math.min(g.breakTime,g.wave===0?PREP_SECONDS:BREAK_SECONDS);g.straw=Number.isFinite(g.straw)?g.straw:50;g.brick=Number.isFinite(g.brick)?g.brick:35;if(!Array.isArray(g.terrain)||g.terrain.length!==W*H)g.terrain=Array(W*H).fill('grass');for(const u of g.units)if(!u.cells)u.cells=[[0,0]];if([2,3,4].includes((g.level-1)%6)&&g.terrainRevision!==3){g.terrain=makeTerrain(g.level);for(const u of g.units)for(const c of unitCells(u))if(!buildableTerrain(g,c.x,c.y))g.terrain[c.y*W+c.x]='bridge';g.trees=g.trees.filter(t=>buildableTerrain(g,t.x,t.y));for(const e of g.enemies){e.path=[];e.repath=0}g.terrainRevision=3}g.effects=[];return g}catch{return null}}
