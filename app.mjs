@@ -1,8 +1,8 @@
-import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=6';
-import {createGestures,configureView} from './camera.mjs?v=6';
-import {TYPES,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=6';
-import {render,project,tileAt} from './render.mjs?v=6';
-import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=6';
+import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=7';
+import {createGestures,configureView} from './camera.mjs?v=7';
+import {TYPES,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=7';
+import {render,project,tileAt} from './render.mjs?v=7';
+import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=7';
 const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),intro=$('intro'),ic=intro.getContext('2d');
 let unlocked=1,chosenLevel=1;try{unlocked=levelNumber(Number(localStorage.getItem('moonfall-unlocked')))}catch{}
 let celebrationStart=0,celebrationNotes=0;const partyCanvas=$('confetti'),partyCtx=partyCanvas.getContext('2d');

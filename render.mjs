@@ -1,8 +1,8 @@
-import {levelInfo,terrainAt} from './levels.mjs?v=6';
-import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=6';
-import {catnap} from './intro.mjs?v=6';
-import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=6';
-export {configureView,project,tileAt} from './camera.mjs?v=6';
+import {levelInfo,terrainAt} from './levels.mjs?v=7';
+import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=7';
+import {catnap} from './intro.mjs?v=7';
+import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=7';
+export {configureView,project,tileAt} from './camera.mjs?v=7';
 function ground(c,iso,x,y,color,sides=false){const corners=[[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]].map(([dx,dy])=>iso(x+dx,y+dy));if(sides)for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4];c.fillStyle=i%2?'#24372f':'#2a3d36';c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.lineTo(b.x,b.y-15);c.lineTo(a.x,a.y-15);c.closePath();c.fill()}c.beginPath();corners.forEach((p,i)=>i?c.lineTo(p.x,p.y-15):c.moveTo(p.x,p.y-15));c.closePath();c.fillStyle=color;c.fill();c.strokeStyle='#172d2525';c.lineWidth=.7;c.stroke()}
 function diamond(c,x,y,w,h,color){c.beginPath();c.moveTo(x,y-h/2);c.lineTo(x+w/2,y);c.lineTo(x,y+h/2);c.lineTo(x-w/2,y);c.closePath();c.fillStyle=color;c.fill()}
 function block(c,x,y,z,width,height,colors){const w=TW*width,h=TH*width,base=y-z; c.fillStyle=colors[1];c.beginPath();c.moveTo(x-w/2,base);c.lineTo(x,base+h/2);c.lineTo(x,base+h/2-height);c.lineTo(x-w/2,base-height);c.fill();c.fillStyle=colors[2];c.beginPath();c.moveTo(x,base+h/2);c.lineTo(x+w/2,base);c.lineTo(x+w/2,base-height);c.lineTo(x,base+h/2-height);c.fill();diamond(c,x,base-height,w,h,colors[0]);}

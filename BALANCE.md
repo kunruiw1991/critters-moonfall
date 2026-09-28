@@ -41,3 +41,8 @@ The old campaign plan, without brick production, lost all six stages on seed 731
 Six maps retain their distinct routes, ice speed effects, mixed enemy waves, per-map music and automatic victory celebration. No floating enemy-type icons are used; colors, whole-body scale and silhouettes identify enemy roles.
 
 On seed 731 the revised production-and-outpost policy won stages 1–6 in 428, 455, 471, 491, 509 and 525 seconds. Stage five needed an extra forward prism; surviving structures ranged from 11 to 17 after losses. The first-stage policy still has generous room once its economy is established. This is one seed, not a comprehensive difficulty calibration.
+
+## River map learning curve (v7)
+Stage 2 now starts with a pig and brick kiln, plus 60 wood, 30 straw, 25 bricks and 25 stars above its previous allocation. Preparation is 55 seconds; breaks are 45 seconds. Enemy count is 75% rounded up, HP 80%, damage 70%, and spawn spacing 2.4 seconds. Wave clears restore 65 core HP. Waves 1–2 contain only walkers/runners, wave 3 introduces a brute, wave 4 a spitter, with the broader mix returning in wave 5 and the boss in wave 6. Other stages and the material/repair rules are unchanged.
+
+Five deterministic seeds pass a basic eight-building plan with one build attempt every 15 seconds and no upgrades, manual repair, harvesting, moon restoration or sunburst. This checks a more forgiving route, not every player layout. Restart stage 2 for the new starting buildings and supplies; unlocked stages remain saved.

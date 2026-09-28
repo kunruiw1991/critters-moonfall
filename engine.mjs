@@ -1,4 +1,4 @@
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind} from './levels.mjs?v=6';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind} from './levels.mjs?v=7';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:45,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -31,7 +31,9 @@ export const ENEMIES={
  mini:{icon:'🐾',color:'#f4d372',size:.55,hp:.35,speed:.95,damage:4,armor:0},
  boss:{icon:'🌘',color:'#9678ad',size:2.5,hp:20,speed:.38,damage:34,armor:.75}
 };
-export function makeEnemy(g,kind,x,y){const t=ENEMIES[kind],d=levelNumber(g.level)-1,hp=(30+g.wave*6)*t.hp*(1+d*.18);return{id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:t.speed*Math.min(1.35,1+d*.03),damage:t.damage*(1+d*.1),armor:t.armor,cool:0,slowTime:0,path:[],repath:0,summonClock:7,summons:0,fuse:null}}
+// The river map introduces materials and split lanes without a siege difficulty spike.
+const riverLesson=g=>g.level===2;
+export function makeEnemy(g,kind,x,y){const t=ENEMIES[kind],d=levelNumber(g.level)-1,hp=(30+g.wave*6)*t.hp*(1+d*.18)*(riverLesson(g)?.8:1);return{id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:t.speed*Math.min(1.35,1+d*.03),damage:t.damage*(1+d*.1)*(riverLesson(g)?.7:1),armor:t.armor,cool:0,slowTime:0,path:[],repath:0,summonClock:7,summons:0,fuse:null}}
 export function enemyKind(wave,n){return n===1&&wave%6===0?'boss':wave>=5&&n===8?'summoner':wave>=4&&n%9===0?'healer':wave>=2&&n%7===0?'bomber':wave>=2&&n%6===0?'spitter':wave>=2&&n%5===0?'brute':wave>=1&&n%3===0?'runner':'zombie'}
 const key=(x,y)=>y*W+x;
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -43,7 +45,9 @@ export function createGame({seed=731,creative=false,level=1}={}){
  level=levelNumber(level);const bonus=Math.min(10,level-1);
  const g={version:1,seed,creative,level,time:0,wood:170+bonus*20,star:50+bonus*5,straw:50+bonus*5,brick:35+bonus*3,core:700,maxCore:700,moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:30,units:[],enemies:[],trees:[],effects:[],terrain:makeTerrain(level),nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
  for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(distance({x,y},CENTER)>5.5&&walkable(g,x,y)&&random(g)<levelInfo(level).tree)g.trees.push({x,y,hp:2});
- g.units.push(makeUnit(g,'sun',9,9),makeUnit(g,'mill',12,10));return g;
+ g.units.push(makeUnit(g,'sun',9,9),makeUnit(g,'mill',12,10));
+ if(riverLesson(g)){g.wood+=60;g.straw+=30;g.brick+=25;g.star+=25;g.breakTime=55;g.units.push(makeUnit(g,'garden',14,11),makeUnit(g,'kiln',14,12))}
+ return g;
 }
 function makeUnit(g,type,x,y){return{id:g.nextId++,type,x,y,level:1,hp:TYPES[type].hp,maxHp:TYPES[type].hp,cool:0}}
 export function unitAt(g,x,y){return g.units.find(u=>u.x===x&&u.y===y)}
@@ -58,7 +62,7 @@ export const moonCost=g=>[40,60,80][g.moon]??0;
 export function restoreMoon(g){if(g.over||g.moon>=3||(!g.creative&&g.star<moonCost(g)))return false;if(!g.creative)g.star-=moonCost(g);g.moon++;g.core=Math.min(g.maxCore,g.core+100);checkWin(g);return true}
 function checkWin(g){if(!g.creative&&g.cleared>=6&&!g.waveActive&&g.remaining===0&&g.enemies.length===0&&g.core>0){g.moon=3;g.over='win'}}
 export function finishCreative(g){if(!g.creative||g.over)return false;g.over='win';g.waveActive=false;g.remaining=0;g.enemies=[];g.moon=3;return true}
-export function startWave(g){if(g.over||g.waveActive||(!g.creative&&g.wave>=6))return false;g.wave++;g.waveActive=true;g.remaining=5+g.wave*3+Math.min(12,(levelNumber(g.level)-1)*2);g.spawnClock=.1;g.breakTime=0;return true}
+export function startWave(g){if(g.over||g.waveActive||(!g.creative&&g.wave>=6))return false;g.wave++;g.waveActive=true;g.remaining=5+g.wave*3+Math.min(12,(levelNumber(g.level)-1)*2);if(riverLesson(g))g.remaining=Math.max(6,Math.ceil(g.remaining*.75));g.spawnClock=.1;g.breakTime=0;return true}
 export function sunburst(g){if(g.over||g.sunCooldown>0)return false;g.sunCooldown=30;g.effects.push({kind:'sun',...CENTER,life:1});for(const e of g.enemies)if(distance(e,CENTER)<6)e.hp-=65;g.core=Math.min(g.maxCore,g.core+25);return true}
 function spawn(g){const wave=g.wave,n=g.remaining;const kind=encounterKind(g.level,wave,n,enemyKind(wave,n));const edge=wave<=2?0:Math.floor(random(g)*4);let x,y;if(edge===0){x=0;y=3+Math.floor(random(g)*(H-6))}else if(edge===1){x=W-1;y=3+Math.floor(random(g)*(H-6))}else if(edge===2){x=3+Math.floor(random(g)*(W-6));y=0}else{x=3+Math.floor(random(g)*(W-6));y=H-1}
  g.enemies.push(makeEnemy(g,kind,x,y));}
@@ -80,7 +84,7 @@ export function update(g,dt){if(g.over)return;if(g.core<=0&&!g.creative){g.core=
   if(t.heal){const target=g.units.filter(a=>a.id!==u.id&&a.hp>0&&a.hp<a.maxHp&&!repaired.has(a.id)&&g.time-(a.lastHit??-100)>=3&&distance(a,u)<=t.range).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(target){const amount=Math.min(t.heal*(1+.25*(u.level-1))*dt,target.maxHp-target.hp,g.creative?Infinity:g.straw/.3);if(amount>0){target.hp+=amount;if(!g.creative)g.straw-=amount*.3;repaired.add(target.id);if(g.time>=(u.healEffectAt||0)){u.healEffectAt=g.time+1;g.effects.push({kind:'mend',x:u.x,y:u.y,tx:target.x,ty:target.y,life:.35})}}}}
   if(t.damage&&u.cool<=0){const targets=g.enemies.filter(e=>e.hp>0&&distance(e,u)<=t.range&&(t.pierce||clearShot(g,u,e)));if(targets.length){const target=targets.reduce((a,b)=>distance(a,CENTER)<distance(b,CENTER)?a:b);u.cool=t.period;const boosted=g.units.some(b=>TYPES[b.type].boost&&distance(b,u)<=TYPES[b.type].range);const amount=t.damage*mult*(boosted?1.25:1);for(const e of g.enemies)if(e===target||(t.splash&&distance(e,target)<=t.splash)){e.hp-=amount*(t.pierce?1:1-e.armor);if(t.slow)e.slowTime=2}g.effects.push({kind:'shot',x:u.x,y:u.y,tx:target.x,ty:target.y,color:t.color,life:.18})}}
  }
- if(g.waveActive){g.spawnClock-=dt;if(g.remaining>0&&g.spawnClock<=0){spawn(g);g.remaining--;g.spawnClock=1.65}}else if(!g.creative&&g.wave<6){g.breakTime-=dt;if(g.breakTime<=0)startWave(g)}
+ if(g.waveActive){g.spawnClock-=dt;if(g.remaining>0&&g.spawnClock<=0){spawn(g);g.remaining--;g.spawnClock=riverLesson(g)?2.4:1.65}}else if(!g.creative&&g.wave<6){g.breakTime-=dt;if(g.breakTime<=0)startWave(g)}
  const healed=new Set(),children=[];
  for(const e of g.enemies){if(e.hp<=0)continue;e.cool=Math.max(0,e.cool-dt);e.slowTime=Math.max(0,e.slowTime-dt);e.repath-=dt;
   if(e.kind==='healer')for(const ally of g.enemies)if(ally!==e&&ally.hp>0&&!healed.has(ally.id)&&distance(e,ally)<2.5){ally.hp=Math.min(ally.maxHp,ally.hp+3*dt);healed.add(ally.id)}
@@ -95,7 +99,7 @@ if(distance(e,CENTER)<.7){if(e.cool<=0){damage(g,null,e.damage);e.cool=1}continu
  }
  for(const e of g.enemies)if(e.hp<=0){g.kills++;g.wood=Math.min(999,g.wood+(e.kind==='mini'?1:3));g.star=Math.min(999,g.star+(e.kind==='boss'?25:e.kind==='mini'?1:2));g.effects.push({kind:'poof',x:e.x,y:e.y,life:.5})}
  g.enemies=[...g.enemies.filter(e=>e.hp>0),...children];g.units=g.units.filter(u=>u.hp>0);if(g.core<=0&&!g.creative){g.core=0;g.over='lose';return}
- if(g.waveActive&&g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=25;g.wood=Math.min(999,g.wood+25+5*(levelNumber(g.level)-1));g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.straw=Math.min(999,g.straw+8);g.brick=Math.min(999,g.brick+5);g.core=Math.min(g.maxCore,g.core+15);g.effects.push({kind:'clear',...CENTER,life:2})}checkWin(g);
+ if(g.waveActive&&g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=riverLesson(g)?45:25;g.wood=Math.min(999,g.wood+25+5*(levelNumber(g.level)-1));g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.straw=Math.min(999,g.straw+8);g.brick=Math.min(999,g.brick+5);g.core=Math.min(g.maxCore,g.core+(riverLesson(g)?65:15));g.effects.push({kind:'clear',...CENTER,life:2})}checkWin(g);
 }
 export function save(g){return JSON.stringify({...g,effects:[]})}
 export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.straw=Number.isFinite(g.straw)?g.straw:50;g.brick=Number.isFinite(g.brick)?g.brick:35;if(!Array.isArray(g.terrain)||g.terrain.length!==W*H)g.terrain=Array(W*H).fill('grass');g.effects=[];return g}catch{return null}}
