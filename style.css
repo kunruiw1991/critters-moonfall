@@ -39,3 +39,13 @@
 @media(max-aspect-ratio:1/1){.palace-hall{object-fit:contain;object-position:center 12%;background:#101e42}#palace .palace-card{padding:14px 16px}#palace #shopItems{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#palace #shopItems button{min-height:105px;font-size:16px}.palace-scenery:after{inset:40% 0 0}}
 @media(max-height:580px) and (min-aspect-ratio:1/1){#palace .palace-card{padding:8px 18px;gap:6px}#palace #shopItems button{font-size:14px;min-height:83px;padding:6px}#palace .ending-actions button{min-height:42px;height:42px;font-size:25px}#palace #moonWallet{top:12px;font-size:18px;padding:6px 14px}}
 @media(prefers-reduced-motion:reduce){.palace-hall,.palace-mist,.palace-sparks{animation:none}}
+
+/* Toy-like celestial architecture shares the game's chunky pastel geometry. */
+#palace{background:linear-gradient(#223751,#667c9b)}.palace-scenery{bottom:190px}.palace-hall{object-fit:contain;object-position:center center;transform:none;animation:toy-float 7s ease-in-out infinite}.palace-scenery:after{inset:70% 0 0;background:linear-gradient(transparent,#536c8870)}.palace-sparks{opacity:.2}
+.roof-rabbit{position:absolute;width:72px;height:65px;left:30%;top:23%;animation:rabbit-cross 10s linear infinite;filter:drop-shadow(0 7px 3px #17304b33)}.roof-rabbit svg{width:100%;height:100%}
+@keyframes toy-float{50%{transform:translateY(-6px)}}
+@keyframes rabbit-cross{0%{transform:translate(0,0) rotate(-5deg);opacity:0}6%{opacity:1}15%{transform:translate(5vw,-32px) rotate(5deg)}25%{transform:translate(10vw,0) rotate(-5deg)}40%{transform:translate(16vw,-45px) rotate(5deg)}50%{transform:translate(22vw,0) rotate(-5deg)}65%{transform:translate(29vw,-36px) rotate(5deg)}77%{transform:translate(35vw,2px) rotate(-5deg);opacity:1}85%,100%{transform:translate(40vw,-25px);opacity:0}}
+#palace #shopItems button{border-radius:22px;border:3px solid #d9d5b4;box-shadow:0 5px 0 #314e66,inset 0 2px 0 #fff4}#palace #shopItems button:disabled{background:#37536de8;color:#b9cbd2;border-color:#829cac}
+@media(max-aspect-ratio:1/1){.palace-scenery{bottom:310px}.palace-hall{background:transparent;object-position:center center}.roof-rabbit{width:55px;top:25%}}
+@media(max-height:580px) and (min-aspect-ratio:1/1){.palace-scenery{bottom:140px}.roof-rabbit{width:48px;height:48px;top:21%}}
+@media(prefers-reduced-motion:reduce){.palace-hall,.roof-rabbit{animation:none}.roof-rabbit{left:62%;transform:translateY(-10px)}}

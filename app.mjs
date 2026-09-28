@@ -1,10 +1,10 @@
-import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=9';
-import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=9';
-import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=9';
-import {createGestures,configureView} from './camera.mjs?v=9';
-import {TYPES,CAPS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=9';
-import {render,project,tileAt} from './render.mjs?v=9';
-import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=9';
+import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=11';
+import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=11';
+import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=11';
+import {createGestures,configureView} from './camera.mjs?v=11';
+import {TYPES,CAPS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=11';
+import {render,project,tileAt} from './render.mjs?v=11';
+import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=11';
 const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),intro=$('intro'),ic=intro.getContext('2d');
 let unlocked=1,chosenLevel=1;try{unlocked=levelNumber(Number(localStorage.getItem('moonfall-unlocked')))}catch{}
 let pieces=[];try{pieces=readPieces(localStorage.getItem('moonfall-pieces'),unlocked)}catch{}
@@ -31,7 +31,7 @@ function sync(){
  const u=game.units.find(u=>u.id===selectedId);if(!u){selectedId=null;$('selection').hidden=true}else{const t=TYPES[u.type],cost=upgradeCost(u);$('selection').hidden=false;$('selectionIcon').textContent=t.icon;$('selectionLevel').textContent='★'.repeat(u.level);$('upgradePrice').textContent=u.level>=3?'✓':costText(cost);$('upgrade').disabled=u.level>=3||!afford(game,cost);$('repair').disabled=!canRepair(game,u)}
 }
 function persist(){try{if(game.over)localStorage.removeItem('moonfall-save');else localStorage.setItem('moonfall-save',save(game))}catch{}}
-function levelPicker(){const limit=creative?Math.max(LEVELS.length,unlocked):unlocked;chosenLevel=Math.max(1,Math.min(limit,chosenLevel));const info=levelInfo(chosenLevel);$('levelChoice').textContent=`${info.icon} ${chosenLevel}`;$('levelDown').disabled=chosenLevel<=1;$('levelUp').disabled=chosenLevel>=limit;$('levelPicker').hidden=false;$('levelChoice').setAttribute('aria-label',info.name);$('mapPreview').setAttribute('aria-label',info.name);const c=$('mapPreview').getContext('2d'),cells=makeTerrain(chosenLevel);c.clearRect(0,0,220,108);for(let y=0;y<18;y++)for(let x=0;x<22;x++){const t=cells[y*22+x];c.fillStyle=({water:'#427ea1',rock:'#454050',lava:'#ee8253',bridge:'#e1c390',ice:'#8ac5db'})[t]||info.ground[0];c.fillRect(x*10,y*6,9,5)}c.fillStyle='#ffe3a1';c.fillRect(105,49,12,12)}
+function levelPicker(){const limit=creative?Math.max(LEVELS.length,unlocked):unlocked;chosenLevel=Math.max(1,Math.min(limit,chosenLevel));const info=levelInfo(chosenLevel);$('levelChoice').textContent=`${info.icon} ${chosenLevel}`;$('levelDown').disabled=chosenLevel<=1;$('levelUp').disabled=chosenLevel>=limit;$('levelPicker').hidden=false;$('levelChoice').setAttribute('aria-label',info.name);$('mapPreview').setAttribute('aria-label',info.name);const c=$('mapPreview').getContext('2d'),cells=makeTerrain(chosenLevel);c.clearRect(0,0,220,108);for(let y=0;y<18;y++)for(let x=0;x<22;x++){const t=cells[y*22+x];c.fillStyle=({water:'#427ea1',rock:'#454050',lava:'#ee8253',bridge:'#e1c390',ice:'#61ddeb',burrow:'#963b81',sand:'#dba764'})[t]||info.ground[0];c.fillRect(x*10,y*6,9,5)}c.fillStyle='#ffe3a1';c.fillRect(105,49,12,12)}
 $('levelDown').onclick=()=>{chosenLevel--;levelPicker()};$('levelUp').onclick=()=>{chosenLevel++;levelPicker()};
 function menu(){phase='menu';$('ending').hidden=true;$('start').textContent='▶';$('start').setAttribute('aria-label','观看开场并开始游戏');levelPicker();music.pause();$('menu').hidden=false;$('pauseOverlay').hidden=true;$('cinema').hidden=true;$('pause').disabled=true;$('resultStats').hidden=true;document.querySelector('h1').textContent='MOONFALL';document.querySelector('.moon-art').textContent='🌘';document.querySelector('.menu-modes').hidden=false;document.querySelector('.menu-portraits').hidden=false;try{$('resumeSave').hidden=!load(localStorage.getItem('moonfall-save'))}catch{$('resumeSave').hidden=true}sync()}
 function begin(skip=false){game=createGame({seed:(Date.now()>>>0),creative,level:chosenLevel,upgrades:palace.upgrades});$('ending').hidden=true;selectedType='sun';selectedId=null;view.panX=view.panY=0;view.zoom=1;view.rotation=0;$('menu').hidden=true;$('cinema').hidden=false;phase='intro';introStart=performance.now();introStage=-1;musicPlay(.1);tone(90,.8,'triangle');resize();if(skip===true||chosenLevel>1)finishIntro()}
@@ -40,7 +40,7 @@ function pause(){gestures.reset();if(phase==='game'){phase='paused';$('pauseOver
 function finish(){if(phase==='result')return;phase='result';const won=game.over==='win';$('menu').hidden=true;$('pauseOverlay').hidden=true;$('ending').hidden=false;$('ending').classList.toggle('defeat',!won);$('pause').disabled=true;selectedId=null;$('selection').hidden=true;
  const before=pieces;pieces=awardPiece(pieces,game);awardedPiece=pieces.length>before.length?game.level:0;try{localStorage.setItem('moonfall-pieces',JSON.stringify(pieces))}catch{}
  const complete=won&&!game.creative&&pieces.length===6;$('ending').classList.toggle('complete',complete);$('storyScene').hidden=!won||game.creative;$('endingMoon').hidden=won&&!game.creative;$('party').hidden=complete;$('endingTrophy').hidden=complete;
- const result=settle(palace,game);savePalace();$('scorePanel').hidden=game.creative;$('scorePanel').textContent=`🏰 ${result.buildings} + 📦 ${result.resources} + 💚 ${result.health} + 🏁 ${result.clear} = ⭐ ${result.total}　🌙 +${result.earned}`;
+ const result=settle(palace,game);savePalace();$('scorePanel').hidden=game.creative;$('scorePanel').textContent=`🏰 ${result.buildings} + 📦 ${result.resources} + 💚 ${result.health} + 🏁 ${result.clear} + ⚡ ${result.pace} + 🗺️ ${result.challenge} = ⭐ ${result.total}　🌙 +${result.earned}`;
  $('endingMoon').textContent=won?'🌟':'🌘';$('endingTrophy').textContent=won?'🏆':'💛 🛠️';$('endingStats').textContent=game.creative?'🧱 ✨':`🌙 ${pieces.length}/6　${awardedPiece?'🧩 +1':''}`;
  const next=nextLevel(game);$('harder').hidden=!next;if(next){unlocked=Math.max(unlocked,next);try{localStorage.setItem('moonfall-unlocked',String(unlocked))}catch{}$('harder').textContent=`🔥 ${next} ➜`;musicPlay(.25)}else music.pause();
  $('party').replaceChildren();Object.values(TYPES).slice(0,8).forEach((t,i)=>{const im=document.createElement('img');im.src=images[t.portrait].src;im.alt=t.name;im.style.setProperty('--i',i);$('party').append(im)});celebrationStart=performance.now();celebrationNotes=0;persist();sync();(next?$('harder'):$('retry')).focus();if(!won)tone(240,.4,'triangle')}
@@ -82,7 +82,7 @@ canvas.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});ca
 for(const [id,delta]of [['rotateLeft',-Math.PI/4],['rotateRight',Math.PI/4]])$(id).onclick=()=>{gestures.reset();view.rotation+=delta;configureView(view,cw,ch)};
 window.addEventListener('keydown',e=>{if(e.key==='Escape'){if(phase==='intro')finishIntro();else pause()}if(e.key===' '){e.preventDefault();if(phase==='game'&&sunburst(game))sync()}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(phase==='game')pause();if(phase==='intro'){introHiddenAt=performance.now();music.pause()}}else if(phase==='intro'&&introHiddenAt!==null){introStart+=performance.now()-introHiddenAt;introHiddenAt=null;musicPlay(.1)}});window.addEventListener('blur',()=>{if(phase==='game')pause()});
-function frame(now){const dt=Math.min(.12,(now-last)/1000||0);last=now;
+function frame(now){const dt=Math.min(.5,(now-last)/1000||0);last=now;
  if(phase==='intro'){const t=(now-introStart)/1000;if(introHiddenAt===null){drawIntro(ic,iw,ih,Math.min(10,t),images);$('introProgress').firstElementChild.style.width=`${Math.min(100,t/INTRO_SECONDS*100)}%`;const stage=t<2.1?0:t<4.5?1:t<6.6?2:t<8.7?3:4;if(stage!==introStage){introStage=stage;tone([90,65,190,45,620][stage],stage===3?.7:.3,'triangle')}if(t>=INTRO_SECONDS)finishIntro()}}
  if(phase==='game'){acc+=dt;while(acc>=.1){update(game,.1);acc-=.1;if(game.over){finish();break}}autosave+=dt;if(autosave>5){autosave=0;persist()}sync()}
  if(phase==='result')celebration(now);

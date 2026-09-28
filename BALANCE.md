@@ -74,3 +74,16 @@ Settlement score: surviving building health and upgrade level (maximum 300), lef
 Palace permanent upgrades each have 3 tiers, priced 4/6/8 small moons: attack +8% per tier; base/building health +12%; production +10%; starting pack +30 wood/+15 straw/+10 bricks/+10 stars. New games snapshot upgrades; purchases do not modify an already running saved map. Wallet, purchases and paid records persist together locally. The next-level button opens the palace with an optional purchase and immediate next-map button. Selected cards rise 6px; availability still uses only light/dark backgrounds.
 
 Validation: 47 tests including progression, rewards, duplicate settlement, purchasing, actual combat/production effects and finale. All six scripted campaigns pass with no purchased upgrades; first two stages complete around 328/335 seconds on seed 731. Five slow-building stage-two seeds also pass. These samples do not guarantee every player layout.
+
+## Visual and map redesign (v11)
+The palace is now a code-native pastel toy-like SVG hall matching the chunky game geometry, with a separate animated jade rabbit hopping over its roof. No photorealistic backdrop is referenced. Reduced motion freezes the rabbit and hall.
+
+Map 3: cross-shaped ice highways run from all four spawn entrances to the base perimeter. Ice accelerates enemies 1.7× and forbids construction; the central starter area remains solid. Map 4: removed all defensive rock rows, added four marked internal burrow entrances. First two waves use two gates; later waves use all four. Sand accelerates enemies 1.12×. No timer extension: preparation 20 seconds and break 12 seconds still apply everywhere. The break starts after a wave is cleared; removing the old detours reduces the waiting tail. Weighted pathfinding now uses a priority heap instead of repeatedly scanning every map cell. The frame accumulator allows 0.5 seconds of catch-up rather than losing elapsed time above 0.12 seconds.
+
+Level 3+ now exposes a brute and spitter/bomber in wave 1, healer in wave 2, summoner in wave 3. Distinct meshes: humanoid walker, four-legged red runner, armored broad blue brute, squat snouted green spitter, spherical orange fuse bomber, winged mint ghost healer, tall purple pointed-hat summoner and small gold crawler. No floating type icons.
+
+Old saved maps 3/4 migrate to new terrain without deleting buildings. Existing occupied restricted tiles become foundations; path caches reset.
+
+Score no longer saturates buildings at 300 or resources at 200. Building score uses surviving health × level weight, materials retain weighted value, pace rewards faster clears, and challenge adds 25 per stage. Coin reward is 2 + floor(total/90), with no fixed eight-coin ceiling. Existing per-stage best-paid records continue preventing duplicate payouts; an improved replay pays its difference. Sample fresh-run rewards on seed 731 are 12,13,12,13,14,13. This is a measured sample, not fixed rewards.
+
+52 tests pass. The six-map campaign passes without palace purchases. tests/visuals.html is a read-only developer model/map gallery using production render functions, isolated from player saves.

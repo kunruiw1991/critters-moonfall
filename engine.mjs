@@ -1,5 +1,5 @@
-import {tiers} from './palace.mjs?v=9';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind} from './levels.mjs?v=9';
+import {tiers} from './palace.mjs?v=11';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates} from './levels.mjs?v=11';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:45,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -47,15 +47,15 @@ export const levelNumber=n=>Number.isSafeInteger(n)&&n>0?n:1;
 export function nextLevel(g){return g.over==='win'&&!g.creative?levelNumber(g.level)+1:null}
 export function createGame({seed=731,creative=false,level=1,upgrades={}}={}){
  level=levelNumber(level);upgrades=tiers(upgrades);const bonus=upgrades.supplies;
- const g={version:1,seed,creative,level,upgrades,time:0,wood:170+bonus*30,star:50+bonus*10,straw:50+bonus*15,brick:35+bonus*10,core:Math.round(700*(1+upgrades.armor*.12)),maxCore:Math.round(700*(1+upgrades.armor*.12)),moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:PREP_SECONDS,units:[],enemies:[],trees:[],effects:[],terrain:makeTerrain(level),nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
- for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(distance({x,y},CENTER)>5.5&&walkable(g,x,y)&&random(g)<levelInfo(level).tree)g.trees.push({x,y,hp:2});
+ const g={version:1,terrainRevision:2,seed,creative,level,upgrades,time:0,wood:170+bonus*30,star:50+bonus*10,straw:50+bonus*15,brick:35+bonus*10,core:Math.round(700*(1+upgrades.armor*.12)),maxCore:Math.round(700*(1+upgrades.armor*.12)),moon:0,wave:0,cleared:0,waveActive:false,remaining:0,spawnClock:0,breakTime:PREP_SECONDS,units:[],enemies:[],trees:[],effects:[],terrain:makeTerrain(level),nextId:1,sunCooldown:0,over:null,kills:0,totalBuilt:0};
+ for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(distance({x,y},CENTER)>5.5&&buildableTerrain(g,x,y)&&random(g)<levelInfo(level).tree)g.trees.push({x,y,hp:2});
  g.units.push(makeUnit(g,'sun',9,9),makeUnit(g,'mill',12,10));
  g.units.push(makeUnit(g,'garden',10,10),makeUnit(g,'kiln',13,10));
  return g;
 }
 function makeUnit(g,type,x,y){return{id:g.nextId++,type,x,y,level:1,hp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),maxHp:Math.round(TYPES[type].hp*perk(g,'armor',.12)),cool:0}}
 export function unitAt(g,x,y){return g.units.find(u=>u.x===x&&u.y===y)}
-export function canBuild(g,type,x,y){return !g.over&&buildReady(g,type)&&inside(x,y)&&walkable(g,x,y)&&x>0&&y>0&&x<W-1&&y<H-1&&distance({x,y},CENTER)>.8&&!unitAt(g,x,y)&&!g.trees.some(t=>t.x===x&&t.y===y)&&!g.enemies.some(e=>distance(e,{x,y})<.65)&&afford(g,TYPES[type])}
+export function canBuild(g,type,x,y){return !g.over&&buildReady(g,type)&&inside(x,y)&&buildableTerrain(g,x,y)&&x>0&&y>0&&x<W-1&&y<H-1&&distance({x,y},CENTER)>.8&&!unitAt(g,x,y)&&!g.trees.some(t=>t.x===x&&t.y===y)&&!g.enemies.some(e=>distance(e,{x,y})<.65)&&afford(g,TYPES[type])}
 export function build(g,type,x,y){if(!canBuild(g,type,x,y))return false;const t=TYPES[type];pay(g,t);const u=makeUnit(g,type,x,y);g.units.push(u);g.totalBuilt++;g.effects.push({kind:'build',x,y,life:.8});return u}
 export function harvest(g,x,y){const i=g.trees.findIndex(t=>t.x===x&&t.y===y);if(i<0||g.over)return false;g.trees[i].hp--;g.wood=Math.min(999,g.wood+10);g.effects.push({kind:'wood',x,y,life:.7});if(g.trees[i].hp<=0)g.trees.splice(i,1);return true}
 export function upgradeCost(u){return{wood:Math.ceil(TYPES[u.type].wood*.7*u.level),star:Math.max(8,Math.ceil(TYPES[u.type].star*.7*u.level)),straw:Math.ceil(TYPES[u.type].straw*.7*u.level),brick:Math.max(5,Math.ceil(TYPES[u.type].brick*.7*u.level))}}
@@ -69,11 +69,12 @@ export function finishCreative(g){if(!g.creative||g.over)return false;g.over='wi
 export function startWave(g){if(g.over||g.waveActive||(!g.creative&&g.wave>=6))return false;g.wave++;g.waveActive=true;g.remaining=5+g.wave*3+Math.min(12,(levelNumber(g.level)-1));g.spawnClock=.1;g.breakTime=0;return true}
 export function sunburst(g){if(g.over||g.sunCooldown>0)return false;g.sunCooldown=30;g.effects.push({kind:'sun',...CENTER,life:1});for(const e of g.enemies)if(distance(e,CENTER)<6)e.hp-=65;g.core=Math.min(g.maxCore,g.core+25);return true}
 function spawn(g){const wave=g.wave,n=g.remaining;const kind=encounterKind(g.level,wave,n,enemyKind(wave,n));const edge=wave<=2?0:Math.floor(random(g)*4);let x,y;if(edge===0){x=0;y=3+Math.floor(random(g)*(H-6))}else if(edge===1){x=W-1;y=3+Math.floor(random(g)*(H-6))}else if(edge===2){x=3+Math.floor(random(g)*(W-6));y=0}else{x=3+Math.floor(random(g)*(W-6));y=H-1}
- g.enemies.push(makeEnemy(g,kind,x,y));}
+ const gates=spawnGates(g.level);if(gates.length){const active=wave<=2?2:gates.length;[x,y]=gates[(n+wave)%active]}g.enemies.push(makeEnemy(g,kind,x,y));}
 // Weighted shortest path: walls divert the horde but can always be broken.
 function findPath(g,e){const sx=Math.round(e.x),sy=Math.round(e.y),start=key(sx,sy),goal=key(CENTER.x,CENTER.y),dist=new Float64Array(W*H).fill(Infinity),prev=new Int32Array(W*H).fill(-1),visited=new Uint8Array(W*H);dist[start]=0;
  const structures=new Map(g.units.map(u=>[key(u.x,u.y),u]));const trees=new Set(g.trees.map(t=>key(t.x,t.y)));
- for(let n=0;n<W*H;n++){let best=-1,min=Infinity;for(let i=0;i<dist.length;i++)if(!visited[i]&&dist[i]<min){best=i;min=dist[i]}if(best<0||best===goal)break;visited[best]=1;const x=best%W,y=Math.floor(best/W);for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(!inside(nx,ny)||!walkable(g,nx,ny))continue;const k=key(nx,ny),u=structures.get(k),cost=1+(u?Math.min(8,u.hp/(e.damage*4)):0)+(trees.has(k)?.7:0);if(dist[k]>min+cost){dist[k]=min+cost;prev[k]=best}}}
+ const heap=[];const push=(k,d)=>{let i=heap.length;heap.push([k,d]);while(i>0){const p=(i-1)>>1;if(heap[p][1]<=d)break;heap[i]=heap[p];i=p}heap[i]=[k,d]};const pop=()=>{const first=heap[0],last=heap.pop();if(heap.length){let i=0;while(i*2+1<heap.length){let c=i*2+1;if(c+1<heap.length&&heap[c+1][1]<heap[c][1])c++;if(last[1]<=heap[c][1])break;heap[i]=heap[c];i=c}heap[i]=last}return first};push(start,0);
+ while(heap.length){const [best,min]=pop();if(visited[best])continue;if(best===goal)break;visited[best]=1;const x=best%W,y=Math.floor(best/W);for(const [dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(!inside(nx,ny)||!walkable(g,nx,ny))continue;const k=key(nx,ny),u=structures.get(k),cost=1+(u?Math.min(8,u.hp/(e.damage*4)):0)+(trees.has(k)?.7:0);if(dist[k]>min+cost){dist[k]=min+cost;prev[k]=best;push(k,dist[k])}}}
  const path=[];let k=goal;for(let n=0;n<W*H&&k!==start&&k!==-1;n++){path.push({x:k%W,y:Math.floor(k/W)});k=prev[k]}return k===start?path.reverse():[];}
 function damage(g,u,amount){const p=u||CENTER;const sheltered=g.units.some(s=>TYPES[s.type].shield&&distance(s,p)<=TYPES[s.type].range);const value=amount*(sheltered?.65:1);if(u){u.hp-=value;u.lastHit=g.time;}else if(!g.creative)g.core-=value}
 export function clearShot(g,a,b){const steps=Math.ceil(distance(a,b)*3);for(let i=1;i<steps;i++){const x=Math.round(a.x+(b.x-a.x)*i/steps),y=Math.round(a.y+(b.y-a.y)*i/steps);if(g.terrain?.[y*W+x]==='rock')return false}return true}
@@ -106,4 +107,4 @@ if(distance(e,CENTER)<.7){if(e.cool<=0){damage(g,null,e.damage);e.cool=1}continu
  if(g.waveActive&&g.remaining===0&&g.enemies.length===0){g.waveActive=false;g.cleared=g.wave;g.breakTime=BREAK_SECONDS;g.wood=Math.min(999,g.wood+25+5*(levelNumber(g.level)-1));g.star=Math.min(999,g.star+15+2*(levelNumber(g.level)-1));g.straw=Math.min(999,g.straw+8);g.brick=Math.min(999,g.brick+5);g.core=Math.min(g.maxCore,g.core+35);g.effects.push({kind:'clear',...CENTER,life:2})}checkWin(g);
 }
 export function save(g){return JSON.stringify({...g,effects:[]})}
-export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.upgrades=tiers(g.upgrades);g.breakTime=Math.min(g.breakTime,g.wave===0?PREP_SECONDS:BREAK_SECONDS);g.straw=Number.isFinite(g.straw)?g.straw:50;g.brick=Number.isFinite(g.brick)?g.brick:35;if(!Array.isArray(g.terrain)||g.terrain.length!==W*H)g.terrain=Array(W*H).fill('grass');g.effects=[];return g}catch{return null}}
+export function load(raw){try{const g=JSON.parse(raw);if(g.version!==1||!Array.isArray(g.units)||!Array.isArray(g.enemies)||!Array.isArray(g.trees)||!Number.isFinite(g.core))return null;g.level=levelNumber(g.level);g.upgrades=tiers(g.upgrades);g.breakTime=Math.min(g.breakTime,g.wave===0?PREP_SECONDS:BREAK_SECONDS);g.straw=Number.isFinite(g.straw)?g.straw:50;g.brick=Number.isFinite(g.brick)?g.brick:35;if(!Array.isArray(g.terrain)||g.terrain.length!==W*H)g.terrain=Array(W*H).fill('grass');if([2,3].includes((g.level-1)%6)&&g.terrainRevision!==2){g.terrain=makeTerrain(g.level);for(const u of g.units)if(!buildableTerrain(g,u.x,u.y))g.terrain[u.y*W+u.x]='bridge';g.trees=g.trees.filter(t=>buildableTerrain(g,t.x,t.y));for(const e of g.enemies){e.path=[];e.repath=0}g.terrainRevision=2}g.effects=[];return g}catch{return null}}
