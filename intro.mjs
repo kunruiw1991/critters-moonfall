@@ -34,6 +34,7 @@ export function drawIntro(c,w,h,t,portraits){
  c.fillStyle='#3c4f52';c.fillRect(607,627,85,70);poly(c,[[597,627],[648,589],[702,627]],'#566762');
  if(t<4.5)rocket(c,649,573,0,1.3,t);else if(t<6.7){const p=ease((t-4.5)/2.2),x=649+(1010-649)*p,y=573+(170-573)*p;for(let i=0;i<9;i++)ellipse(c,x-i*5,y+i*8,9+i*2,9+i*2,'#cfc8a215');rocket(c,x,y,.63,1.3-.7*p,t)}
  if(t>7.15){const rise=ease((t-7.15)/1.2);for(let i=0;i<8;i++){const x=140+i*153,y=720+(1-rise)*70;c.fillStyle='#122724';c.fillRect(x-17,y-65,34,44);c.fillStyle='#789876';c.fillRect(x-20,y-95,40,32);c.fillStyle='#d9c876';c.fillRect(x-13,y-86,6,5);c.fillRect(x+7,y-86,6,5);c.fillStyle='#203735';c.fillRect(x-15,y-20,10,25);c.fillRect(x+5,y-20,10,25)}}
+ if(t>6.8){const fall=ease((t-6.8)/1.9);for(let i=0;i<6;i++){const x=1010+(350+i*115-1010)*fall,y=170+(650-170)*fall;c.save();c.shadowColor='#ffe3a0';c.shadowBlur=18;poly(c,[[x-15,y-13],[x+16,y-8],[x+6,y+17],[x-7,y+7]],'#ffe3a0');c.restore()}}
  if(t>8.7){const p=ease((t-8.7)/1);const list=['critter_05_dogday','critter_08_craftycorn','critter_06_bobby','critter_07_hoppy','critter_09_bubba','mikey','jj'];list.forEach((id,i)=>{const im=portraits[id],x=280+i*120,y=530+(1-p)*230+Math.sin(i+t*4)*5;c.save();ellipse(c,x,y+66,40,10,'#00000055');ellipse(c,x,y,49,49,'#eddb9d');c.beginPath();c.arc(x,y,43,0,Math.PI*2);c.clip();if(im?.complete&&im.naturalWidth)c.drawImage(im,x-43,y-43,86,86);c.restore()})}
  // Letterbox framing keeps the ten-second story readable at any screen shape.
  c.fillStyle='#030710';c.fillRect(0,0,1280,28);c.fillRect(0,775,1280,25);c.restore();

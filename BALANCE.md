@@ -46,3 +46,22 @@ On seed 731 the revised production-and-outpost policy won stages 1–6 in 428, 4
 Stage 2 now starts with a pig and brick kiln, plus 60 wood, 30 straw, 25 bricks and 25 stars above its previous allocation. Preparation is 55 seconds; breaks are 45 seconds. Enemy count is 75% rounded up, HP 80%, damage 70%, and spawn spacing 2.4 seconds. Wave clears restore 65 core HP. Waves 1–2 contain only walkers/runners, wave 3 introduces a brute, wave 4 a spitter, with the broader mix returning in wave 5 and the boss in wave 6. Other stages and the material/repair rules are unchanged.
 
 Five deterministic seeds pass a basic eight-building plan with one build attempt every 15 seconds and no upgrades, manual repair, harvesting, moon restoration or sunburst. This checks a more forgiving route, not every player layout. Restart stage 2 for the new starting buildings and supplies; unlocked stages remain saved.
+
+## Map caps (v8)
+Live caps include starting units, apply in both modes and reset per map. Selling or losing a unit releases its slot; upgrades keep the slot. Existing saves retain their buildings, but cannot add more of a type already at its limit.
+
+| Unit | Maximum |
+|---|---:|
+| DogDay | 6 |
+| KickinChicken | 4 |
+| CraftyCorn | 6 |
+| Mikey walls | 8 |
+| Hoppy | 4 |
+| Bobby BearHug | 2 |
+| Bubba / PickyPiggy / BabaChops | 3 each |
+| JJ / Luna Bat | 2 each |
+
+Producer caps support the new material economy; lower support caps discourage repair/shield clusters. Eight walls allow small defenses, not a map-spanning castle. The second-map novice scenarios and six-map campaign remain passable in the automated simulations.
+
+## Six-piece story
+Nightmare CatNap shatters the moon into six visible pieces. The team arrives to defend them. Each of the first six survival maps awards its own piece once; replays, defeat and creative mode award none. Progress is stored locally; previously unlocked maps migrate to collected pieces. The sixth piece completes the moon above a critter campfire; the next-level button still offers bonus harder maps. The star ability protects/heals the fragment base; it no longer depicts premature moon completion.

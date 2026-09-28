@@ -1,8 +1,8 @@
-import {levelInfo,terrainAt} from './levels.mjs?v=7';
-import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=7';
-import {catnap} from './intro.mjs?v=7';
-import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=7';
-export {configureView,project,tileAt} from './camera.mjs?v=7';
+import {levelInfo,terrainAt} from './levels.mjs?v=8';
+import {W,H,CENTER,TYPES,ENEMIES,canBuild} from './engine.mjs?v=8';
+import {catnap} from './intro.mjs?v=8';
+import {TW,TH,iso as rotateIso,configureView,project,tileAt} from './camera.mjs?v=8';
+export {configureView,project,tileAt} from './camera.mjs?v=8';
 function ground(c,iso,x,y,color,sides=false){const corners=[[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]].map(([dx,dy])=>iso(x+dx,y+dy));if(sides)for(let i=0;i<4;i++){const a=corners[i],b=corners[(i+1)%4];c.fillStyle=i%2?'#24372f':'#2a3d36';c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.lineTo(b.x,b.y-15);c.lineTo(a.x,a.y-15);c.closePath();c.fill()}c.beginPath();corners.forEach((p,i)=>i?c.lineTo(p.x,p.y-15):c.moveTo(p.x,p.y-15));c.closePath();c.fillStyle=color;c.fill();c.strokeStyle='#172d2525';c.lineWidth=.7;c.stroke()}
 function diamond(c,x,y,w,h,color){c.beginPath();c.moveTo(x,y-h/2);c.lineTo(x+w/2,y);c.lineTo(x,y+h/2);c.lineTo(x-w/2,y);c.closePath();c.fillStyle=color;c.fill()}
 function block(c,x,y,z,width,height,colors){const w=TW*width,h=TH*width,base=y-z; c.fillStyle=colors[1];c.beginPath();c.moveTo(x-w/2,base);c.lineTo(x,base+h/2);c.lineTo(x,base+h/2-height);c.lineTo(x-w/2,base-height);c.fill();c.fillStyle=colors[2];c.beginPath();c.moveTo(x,base+h/2);c.lineTo(x+w/2,base);c.lineTo(x+w/2,base-height);c.lineTo(x,base+h/2-height);c.fill();diamond(c,x,base-height,w,h,colors[0]);}
@@ -19,7 +19,7 @@ export function render(c,w,h,g,view,images,selectedType,selectedId,hover,time){
  for(const o of objects){const p=iso(o.x,o.y);p.y-=15;
  if(o.kind==='rock'){block(c,p.x,p.y,0,.86,22,['#8a8194','#5d556b','#4d485c']);continue}
  if(o.kind==='tree'){block(c,p.x,p.y,0,.17,28,['#97805a','#675b41','#594b37']);block(c,p.x,p.y,23,.8,18,['#72945d','#507248','#456640']);block(c,p.x,p.y,42,.55,16,['#86a365','#65874f','#547644']);continue}
- if(o.kind==='core'){block(c,p.x,p.y,0,1.3,24,['#a6b7b0','#637f80','#536d73']);block(c,p.x,p.y,24,.75,37,['#e0d0a6','#9d967a','#86806f']);for(const dx of[-22,22])block(c,p.x+dx,p.y,19,.23,40,['#d6d3b4','#8a9d91','#788b82']);c.save();c.shadowColor='#ffdc8c';c.shadowBlur=22;const yy=p.y-92+Math.sin(time*2)*3;c.fillStyle='#f5d78f';c.beginPath();c.arc(p.x,yy,14,0,Math.PI*2);c.fill();c.restore();c.fillStyle='#17282c';c.fillRect(p.x-27,p.y-112,54,5);c.fillStyle='#b6daa3';c.fillRect(p.x-27,p.y-112,54*g.core/g.maxCore,5);continue}
+ if(o.kind==='core'){block(c,p.x,p.y,0,1.3,24,['#a6b7b0','#637f80','#536d73']);block(c,p.x,p.y,24,.75,37,['#e0d0a6','#9d967a','#86806f']);for(const dx of[-22,22])block(c,p.x+dx,p.y,19,.23,40,['#d6d3b4','#8a9d91','#788b82']);c.save();c.shadowColor='#ffdc8c';c.shadowBlur=22;const yy=p.y-92+Math.sin(time*2)*3;c.fillStyle='#f5d78f';c.beginPath();c.moveTo(p.x-13,yy-11);c.lineTo(p.x+15,yy-7);c.lineTo(p.x+4,yy+15);c.lineTo(p.x-8,yy+5);c.closePath();c.fill();c.restore();c.fillStyle='#17282c';c.fillRect(p.x-27,p.y-112,54,5);c.fillStyle='#b6daa3';c.fillRect(p.x-27,p.y-112,54*g.core/g.maxCore,5);continue}
  if(o.kind==='unit'){const t=TYPES[o.type],uHeight=20+(o.level-1)*5;block(c,p.x,p.y,0,.82,10,['#899990','#566f68','#485e58']);
  switch(o.type){
  case 'wall':block(c,p.x,p.y,10,.9,28+(o.level-1)*10,['#a8b69c','#728772','#657b67']);for(let i=-1;i<=1;i++)block(c,p.x+i*14,p.y,38,.22,8,['#c3c9ac','#8c9b80','#778c74']);break;

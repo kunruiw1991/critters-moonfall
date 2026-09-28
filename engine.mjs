@@ -1,4 +1,4 @@
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind} from './levels.mjs?v=7';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind} from './levels.mjs?v=8';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:45,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -13,6 +13,9 @@ export const TYPES={
  boost:{name:'JJ',icon:'⚡',portrait:'jj',role:'⚡',wood:50,star:25,hp:130,range:3.6,boost:1.25,color:'#c6e299'},
  shield:{name:'Luna Bat',icon:'🛡️',portrait:'critter_01_lunabat',role:'🛡️',wood:60,star:30,hp:160,range:3.3,shield:.65,color:'#ab9ddb'}
 };
+export const CAPS={sun:6,rapid:4,prism:6,wall:8,spring:4,heal:2,mill:3,garden:3,kiln:3,boost:2,shield:2};
+export const unitCount=(g,type)=>g.units.filter(u=>u.type===type&&u.hp>0).length;
+export const buildReady=(g,type)=>!!TYPES[type]&&!g.over&&unitCount(g,type)<CAPS[type]&&afford(g,TYPES[type]);
 export const MATERIALS=['wood','straw','brick','star'];
 const recipes={sun:[10,0],rapid:[18,0],prism:[0,22],wall:[0,12],spring:[16,0],heal:[20,8],mill:[0,0],garden:[0,0],kiln:[15,0],boost:[12,12],shield:[0,25]};
 for(const [type,t]of Object.entries(TYPES)){[t.straw,t.brick]=recipes[type]}
@@ -51,7 +54,7 @@ export function createGame({seed=731,creative=false,level=1}={}){
 }
 function makeUnit(g,type,x,y){return{id:g.nextId++,type,x,y,level:1,hp:TYPES[type].hp,maxHp:TYPES[type].hp,cool:0}}
 export function unitAt(g,x,y){return g.units.find(u=>u.x===x&&u.y===y)}
-export function canBuild(g,type,x,y){return !g.over&&Boolean(TYPES[type])&&inside(x,y)&&walkable(g,x,y)&&x>0&&y>0&&x<W-1&&y<H-1&&distance({x,y},CENTER)>.8&&!unitAt(g,x,y)&&!g.trees.some(t=>t.x===x&&t.y===y)&&!g.enemies.some(e=>distance(e,{x,y})<.65)&&afford(g,TYPES[type])}
+export function canBuild(g,type,x,y){return !g.over&&buildReady(g,type)&&inside(x,y)&&walkable(g,x,y)&&x>0&&y>0&&x<W-1&&y<H-1&&distance({x,y},CENTER)>.8&&!unitAt(g,x,y)&&!g.trees.some(t=>t.x===x&&t.y===y)&&!g.enemies.some(e=>distance(e,{x,y})<.65)&&afford(g,TYPES[type])}
 export function build(g,type,x,y){if(!canBuild(g,type,x,y))return false;const t=TYPES[type];pay(g,t);const u=makeUnit(g,type,x,y);g.units.push(u);g.totalBuilt++;g.effects.push({kind:'build',x,y,life:.8});return u}
 export function harvest(g,x,y){const i=g.trees.findIndex(t=>t.x===x&&t.y===y);if(i<0||g.over)return false;g.trees[i].hp--;g.wood=Math.min(999,g.wood+10);g.effects.push({kind:'wood',x,y,life:.7});if(g.trees[i].hp<=0)g.trees.splice(i,1);return true}
 export function upgradeCost(u){return{wood:Math.ceil(TYPES[u.type].wood*.7*u.level),star:Math.max(8,Math.ceil(TYPES[u.type].star*.7*u.level)),straw:Math.ceil(TYPES[u.type].straw*.7*u.level),brick:Math.max(5,Math.ceil(TYPES[u.type].brick*.7*u.level))}}
