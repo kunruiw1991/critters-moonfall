@@ -65,3 +65,12 @@ Producer caps support the new material economy; lower support caps discourage re
 
 ## Six-piece story
 Nightmare CatNap shatters the moon into six visible pieces. The team arrives to defend them. Each of the first six survival maps awards its own piece once; replays, defeat and creative mode award none. Progress is stored locally; previously unlocked maps migrate to collected pieces. The sixth piece completes the moon above a critter campfire; the next-level button still offers bonus harder maps. The star ability protects/heals the fragment base; it no longer depicts premature moon completion.
+
+## Unified pacing and Guanghan Palace (v9, supersedes v7 river exceptions)
+Every map starts with 170 wood, 50 straw, 35 bricks, 50 stars and the same sun/mill/pig/kiln. Preparation is 20 seconds, breaks 12 seconds, spawn spacing 1.65 seconds and clear healing 35. Each stage adds one enemy per wave (up to +12), +8% base enemy HP and +6% base damage; global HP/damage factors are .85/.8. Every map introduces walkers/runners first, then a brute in wave 3, a spitter in wave 4 and the broader mix in wave 5. Maps retain their terrain. Bonus sixth-map boss remains.
+
+Settlement score: surviving building health and upgrade level (maximum 300), leftover wood/straw plus double-weight bricks/stars divided by 5 (maximum 200), base health fraction (maximum 200), and victory (200). A survival win earns 2 + floor(score/150) small moons. Each map stores its best paid reward: replay pays only an improvement, preventing duplicate settlement or unlimited idle farming. Defeat and creative grant no currency. Small moons are separate from the six unique story fragments.
+
+Palace permanent upgrades each have 3 tiers, priced 4/6/8 small moons: attack +8% per tier; base/building health +12%; production +10%; starting pack +30 wood/+15 straw/+10 bricks/+10 stars. New games snapshot upgrades; purchases do not modify an already running saved map. Wallet, purchases and paid records persist together locally. The next-level button opens the palace with an optional purchase and immediate next-map button. Selected cards rise 6px; availability still uses only light/dark backgrounds.
+
+Validation: 47 tests including progression, rewards, duplicate settlement, purchasing, actual combat/production effects and finale. All six scripted campaigns pass with no purchased upgrades; first two stages complete around 328/335 seconds on seed 731. Five slow-building stage-two seeds also pass. These samples do not guarantee every player layout.
