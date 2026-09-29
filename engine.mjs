@@ -1,5 +1,5 @@
-import {tiers} from './palace.mjs?v=21';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=21';
+import {tiers} from './palace.mjs?v=22';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=22';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:25,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -45,7 +45,7 @@ export const enemyLoot=e=>{const base={zombie:[4,0,0],runner:[6,0,0],brute:[10,2
 export const enemyReward=e=>enemyLoot(e).star;
 export const PREP_SECONDS=20,BREAK_SECONDS=12;
 const perk=(g,key,step)=>1+(g.upgrades?.[key]||0)*step;
-export function makeEnemy(g,kind,x,y){const t=ENEMIES[kind],d=levelNumber(g.level)-1,hp=(30+g.wave*6)*t.hp*(1+d*.08)*.6*heatFactor(g);return{id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:t.speed*Math.min(1.35,1+d*.03),damage:t.damage*(1+d*.06)*.52*heatFactor(g),armor:t.armor,cool:0,slowTime:0,path:[],repath:0,summonClock:7,summons:0,fuse:null}}
+export function makeEnemy(g,kind,x,y){const t=ENEMIES[kind],d=levelNumber(g.level)-1,late=g.level<=2&&g.wave>=5?1.2:1,hp=(30+g.wave*6)*t.hp*(1+d*.08)*.6*heatFactor(g)*late;return{id:g.nextId++,kind,x,y,hp,maxHp:hp,speed:t.speed*Math.min(1.35,1+d*.03),damage:t.damage*(1+d*.06)*.52*heatFactor(g)*late,armor:t.armor,cool:0,slowTime:0,path:[],repath:0,summonClock:7,summons:0,fuse:null}}
 export function enemyKind(wave,n){return n===1&&wave%6===0?'boss':wave>=5&&n===8?'summoner':wave>=4&&n%9===0?'healer':wave>=2&&n%7===0?'bomber':wave>=2&&n%6===0?'spitter':wave>=2&&n%5===0?'brute':wave>=1&&n%3===0?'runner':'zombie'}
 const key=(x,y)=>y*W+x;
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);

@@ -148,3 +148,7 @@ All six construction material requirements are multiplied by 0.5 before Heat and
 ## v21 — reset campaign progression on New Game
 
 New Game clears fragment ownership, palace wallet, purchased upgrades, and per-level reward bests. Survival starts at level 1 with 0/6 fragments and resets campaign unlocks. Retry, next level, and Load Game preserve progression. Clear the old active save immediately, including during the intro. The palace now labels upgrades as lasting for the current campaign.
+
+## v22 — smoother first three stages
+
+Stages 1–2 waves 5–6 gain 20% enemy HP and attack, plus dedicated brute and bomber slots; wave 6 also adds a summoner. Enemy counts, spawn intervals and breaks stay unchanged. Stage 3 waves 1–2 now contain only ordinary zombies and runners, with the first brute in wave 3 and spitter in wave 4. Later stages keep their existing encounters.

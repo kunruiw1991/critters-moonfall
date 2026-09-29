@@ -1,10 +1,10 @@
-import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=21';
-import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=21';
-import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=21';
-import {createGestures,configureView} from './camera.mjs?v=21';
-import {TYPES,buildCost,clampHeat,heatFactor,MAX_UNIT_LEVEL,FOOTPRINTS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=21';
-import {render,project,tileAt} from './render.mjs?v=21';
-import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=21';
+import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=22';
+import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=22';
+import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=22';
+import {createGestures,configureView} from './camera.mjs?v=22';
+import {TYPES,buildCost,clampHeat,heatFactor,MAX_UNIT_LEVEL,FOOTPRINTS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=22';
+import {render,project,tileAt} from './render.mjs?v=22';
+import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=22';
 const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),intro=$('intro'),ic=intro.getContext('2d');
 let unlocked=1,chosenLevel=1;try{unlocked=levelNumber(Number(localStorage.getItem('moonfall-unlocked')))}catch{}
 let pieces=[];try{pieces=readPieces(localStorage.getItem('moonfall-pieces'),unlocked)}catch{}
