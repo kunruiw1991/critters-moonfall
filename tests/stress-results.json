@@ -1,0 +1,2242 @@
+[
+  {
+    "level": 1,
+    "seed": 17,
+    "interval": 20,
+    "result": "win",
+    "seconds": 355,
+    "core": 700,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 34,
+    "attempts": 178,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 86,
+        "straw": 33,
+        "brick": 41,
+        "star": 7,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 76,
+        "brick": 72,
+        "star": 42,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 143,
+        "straw": 133,
+        "brick": 112,
+        "star": 91,
+        "diamond": 2,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 122,
+        "straw": 86,
+        "brick": 44,
+        "star": 85,
+        "diamond": 1,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 119,
+        "straw": 80,
+        "brick": 18,
+        "star": 95,
+        "diamond": 13,
+        "gold": 4,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 87,
+        "straw": 73,
+        "brick": 33,
+        "star": 104,
+        "diamond": 28,
+        "gold": 9,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "seed": 731,
+    "interval": 20,
+    "result": "win",
+    "seconds": 356,
+    "core": 629,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 16,
+    "starBlocked": 34,
+    "attempts": 179,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 101,
+        "straw": 66,
+        "brick": 61,
+        "star": 31,
+        "diamond": 0,
+        "gold": 0,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 108,
+        "straw": 71,
+        "brick": 69,
+        "star": 42,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 139,
+        "straw": 127,
+        "brick": 108,
+        "star": 91,
+        "diamond": 2,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 139,
+        "straw": 112,
+        "brick": 53,
+        "star": 105,
+        "diamond": 3,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 5,
+        "wood": 114,
+        "straw": 122,
+        "brick": 15,
+        "star": 95,
+        "diamond": 13,
+        "gold": 4,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 84,
+        "straw": 112,
+        "brick": 32,
+        "star": 104,
+        "diamond": 28,
+        "gold": 9,
+        "units": 14
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "seed": 922,
+    "interval": 20,
+    "result": "win",
+    "seconds": 346,
+    "core": 700,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 35,
+    "attempts": 173,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 87,
+        "straw": 33,
+        "brick": 41,
+        "star": 7,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 76,
+        "brick": 71,
+        "star": 42,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 138,
+        "straw": 124,
+        "brick": 105,
+        "star": 91,
+        "diamond": 2,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 141,
+        "straw": 115,
+        "brick": 56,
+        "star": 105,
+        "diamond": 3,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 91,
+        "straw": 116,
+        "brick": 14,
+        "star": 95,
+        "diamond": 13,
+        "gold": 4,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 63,
+        "straw": 116,
+        "brick": 27,
+        "star": 104,
+        "diamond": 28,
+        "gold": 9,
+        "units": 14
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "seed": 42,
+    "interval": 20,
+    "result": "win",
+    "seconds": 359,
+    "core": 647,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 35,
+    "attempts": 180,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 86,
+        "straw": 33,
+        "brick": 41,
+        "star": 7,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 108,
+        "straw": 72,
+        "brick": 69,
+        "star": 42,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 142,
+        "straw": 131,
+        "brick": 110,
+        "star": 91,
+        "diamond": 2,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 121,
+        "straw": 86,
+        "brick": 43,
+        "star": 85,
+        "diamond": 1,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 117,
+        "straw": 81,
+        "brick": 13,
+        "star": 95,
+        "diamond": 13,
+        "gold": 4,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 62,
+        "straw": 74,
+        "brick": 36,
+        "star": 104,
+        "diamond": 28,
+        "gold": 9,
+        "units": 14
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "seed": 2026,
+    "interval": 20,
+    "result": "win",
+    "seconds": 331,
+    "core": 541,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 33,
+    "attempts": 166,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 86,
+        "straw": 31,
+        "brick": 40,
+        "star": 7,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 107,
+        "straw": 70,
+        "brick": 67,
+        "star": 42,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 126,
+        "straw": 97,
+        "brick": 33,
+        "star": 66,
+        "diamond": 0,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 136,
+        "straw": 105,
+        "brick": 49,
+        "star": 105,
+        "diamond": 3,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 5,
+        "wood": 38,
+        "straw": 77,
+        "brick": 11,
+        "star": 65,
+        "diamond": 9,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 65,
+        "straw": 108,
+        "brick": 18,
+        "star": 104,
+        "diamond": 28,
+        "gold": 9,
+        "units": 14
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "seed": 17,
+    "interval": 150,
+    "result": "win",
+    "seconds": 391,
+    "core": 398,
+    "builds": 6,
+    "upgrades": 4,
+    "peak": 15,
+    "starBlocked": 3,
+    "attempts": 27,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 103,
+        "straw": 69,
+        "brick": 70,
+        "star": 35,
+        "diamond": 0,
+        "gold": 0,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 113,
+        "straw": 80,
+        "brick": 81,
+        "star": 49,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 146,
+        "straw": 139,
+        "brick": 123,
+        "star": 101,
+        "diamond": 2,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 153,
+        "straw": 136,
+        "brick": 58,
+        "star": 118,
+        "diamond": 3,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 151,
+        "straw": 159,
+        "brick": 20,
+        "star": 74,
+        "diamond": 16,
+        "gold": 5,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 115,
+        "straw": 204,
+        "brick": 13,
+        "star": 148,
+        "diamond": 32,
+        "gold": 10,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "seed": 731,
+    "interval": 150,
+    "result": "win",
+    "seconds": 393,
+    "core": 311,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 14,
+    "starBlocked": 3,
+    "attempts": 27,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 101,
+        "straw": 66,
+        "brick": 67,
+        "star": 35,
+        "diamond": 0,
+        "gold": 0,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 77,
+        "brick": 79,
+        "star": 49,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 145,
+        "straw": 137,
+        "brick": 119,
+        "star": 101,
+        "diamond": 2,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 155,
+        "straw": 142,
+        "brick": 60,
+        "star": 78,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 5,
+        "wood": 120,
+        "straw": 163,
+        "brick": 8,
+        "star": 114,
+        "diamond": 14,
+        "gold": 4,
+        "units": 13
+      },
+      {
+        "wave": 6,
+        "wood": 73,
+        "straw": 167,
+        "brick": 11,
+        "star": 128,
+        "diamond": 30,
+        "gold": 9,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "seed": 922,
+    "interval": 150,
+    "result": "win",
+    "seconds": 359,
+    "core": 559,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 16,
+    "starBlocked": 3,
+    "attempts": 24,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 88,
+        "straw": 35,
+        "brick": 47,
+        "star": 11,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 76,
+        "brick": 76,
+        "star": 49,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 139,
+        "straw": 126,
+        "brick": 110,
+        "star": 101,
+        "diamond": 2,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 118,
+        "straw": 102,
+        "brick": 46,
+        "star": 98,
+        "diamond": 1,
+        "gold": 0,
+        "units": 15
+      },
+      {
+        "wave": 5,
+        "wood": 114,
+        "straw": 125,
+        "brick": 15,
+        "star": 114,
+        "diamond": 14,
+        "gold": 4,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 41,
+        "straw": 147,
+        "brick": 15,
+        "star": 128,
+        "diamond": 30,
+        "gold": 9,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "seed": 42,
+    "interval": 150,
+    "result": "win",
+    "seconds": 396,
+    "core": 416,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 3,
+    "attempts": 27,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 87,
+        "straw": 34,
+        "brick": 47,
+        "star": 11,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 114,
+        "straw": 81,
+        "brick": 80,
+        "star": 49,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 141,
+        "straw": 131,
+        "brick": 115,
+        "star": 101,
+        "diamond": 2,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 154,
+        "straw": 137,
+        "brick": 73,
+        "star": 78,
+        "diamond": 3,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 126,
+        "straw": 148,
+        "brick": 20,
+        "star": 114,
+        "diamond": 14,
+        "gold": 4,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 85,
+        "straw": 187,
+        "brick": 23,
+        "star": 128,
+        "diamond": 30,
+        "gold": 9,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "seed": 2026,
+    "interval": 150,
+    "result": "win",
+    "seconds": 378,
+    "core": 700,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 3,
+    "attempts": 26,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 89,
+        "straw": 37,
+        "brick": 47,
+        "star": 11,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 114,
+        "straw": 83,
+        "brick": 79,
+        "star": 49,
+        "diamond": 0,
+        "gold": 0,
+        "units": 13
+      },
+      {
+        "wave": 3,
+        "wood": 150,
+        "straw": 145,
+        "brick": 123,
+        "star": 101,
+        "diamond": 2,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 155,
+        "straw": 113,
+        "brick": 72,
+        "star": 78,
+        "diamond": 3,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 102,
+        "straw": 77,
+        "brick": 16,
+        "star": 94,
+        "diamond": 12,
+        "gold": 3,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 90,
+        "straw": 72,
+        "brick": 48,
+        "star": 128,
+        "diamond": 30,
+        "gold": 9,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "seed": 17,
+    "interval": 20,
+    "result": "win",
+    "seconds": 334,
+    "core": 113,
+    "builds": 5,
+    "upgrades": 4,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 167,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 91,
+        "straw": 42,
+        "brick": 39,
+        "star": 21,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 116,
+        "straw": 84,
+        "brick": 70,
+        "star": 72,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 105,
+        "straw": 69,
+        "brick": 15,
+        "star": 92,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 82,
+        "straw": 67,
+        "brick": 19,
+        "star": 87,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 55,
+        "straw": 27,
+        "brick": 9,
+        "star": 98,
+        "diamond": 32,
+        "gold": 6,
+        "units": 10
+      },
+      {
+        "wave": 6,
+        "wood": 34,
+        "straw": 61,
+        "brick": 39,
+        "star": 162,
+        "diamond": 58,
+        "gold": 15,
+        "units": 9
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "seed": 731,
+    "interval": 20,
+    "result": "win",
+    "seconds": 334,
+    "core": 113,
+    "builds": 5,
+    "upgrades": 4,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 168,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 91,
+        "straw": 42,
+        "brick": 39,
+        "star": 21,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 116,
+        "straw": 84,
+        "brick": 70,
+        "star": 72,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 105,
+        "straw": 69,
+        "brick": 15,
+        "star": 92,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 82,
+        "straw": 67,
+        "brick": 18,
+        "star": 87,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 55,
+        "straw": 27,
+        "brick": 10,
+        "star": 98,
+        "diamond": 32,
+        "gold": 6,
+        "units": 10
+      },
+      {
+        "wave": 6,
+        "wood": 34,
+        "straw": 61,
+        "brick": 39,
+        "star": 162,
+        "diamond": 58,
+        "gold": 15,
+        "units": 9
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "seed": 922,
+    "interval": 20,
+    "result": "win",
+    "seconds": 334,
+    "core": 113,
+    "builds": 5,
+    "upgrades": 4,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 167,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 91,
+        "straw": 42,
+        "brick": 39,
+        "star": 21,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 116,
+        "straw": 84,
+        "brick": 70,
+        "star": 72,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 105,
+        "straw": 69,
+        "brick": 15,
+        "star": 92,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 81,
+        "straw": 67,
+        "brick": 18,
+        "star": 87,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 55,
+        "straw": 27,
+        "brick": 9,
+        "star": 98,
+        "diamond": 32,
+        "gold": 6,
+        "units": 10
+      },
+      {
+        "wave": 6,
+        "wood": 34,
+        "straw": 61,
+        "brick": 38,
+        "star": 162,
+        "diamond": 58,
+        "gold": 15,
+        "units": 9
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "seed": 42,
+    "interval": 20,
+    "result": "win",
+    "seconds": 338,
+    "core": 126,
+    "builds": 5,
+    "upgrades": 4,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 169,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 91,
+        "straw": 41,
+        "brick": 39,
+        "star": 21,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 117,
+        "straw": 85,
+        "brick": 71,
+        "star": 72,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 106,
+        "straw": 71,
+        "brick": 17,
+        "star": 92,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 83,
+        "straw": 68,
+        "brick": 20,
+        "star": 87,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 56,
+        "straw": 28,
+        "brick": 11,
+        "star": 98,
+        "diamond": 32,
+        "gold": 6,
+        "units": 10
+      },
+      {
+        "wave": 6,
+        "wood": 37,
+        "straw": 62,
+        "brick": 41,
+        "star": 162,
+        "diamond": 58,
+        "gold": 15,
+        "units": 9
+      }
+    ]
+  },
+  {
+    "level": 3,
+    "seed": 2026,
+    "interval": 20,
+    "result": "win",
+    "seconds": 332,
+    "core": 95,
+    "builds": 5,
+    "upgrades": 4,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 166,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 91,
+        "straw": 42,
+        "brick": 39,
+        "star": 21,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 116,
+        "straw": 84,
+        "brick": 70,
+        "star": 72,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 105,
+        "straw": 69,
+        "brick": 15,
+        "star": 92,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 81,
+        "straw": 67,
+        "brick": 18,
+        "star": 87,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 44,
+        "straw": 45,
+        "brick": 21,
+        "star": 98,
+        "diamond": 32,
+        "gold": 6,
+        "units": 11
+      },
+      {
+        "wave": 6,
+        "wood": 26,
+        "straw": 66,
+        "brick": 51,
+        "star": 162,
+        "diamond": 58,
+        "gold": 15,
+        "units": 10
+      }
+    ]
+  },
+  {
+    "level": 4,
+    "seed": 17,
+    "interval": 20,
+    "result": "win",
+    "seconds": 356,
+    "core": 221,
+    "builds": 5,
+    "upgrades": 5,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 178,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 93,
+        "straw": 44,
+        "brick": 41,
+        "star": 24,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 112,
+        "straw": 50,
+        "brick": 6,
+        "star": 54,
+        "diamond": 6,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 3,
+        "wood": 117,
+        "straw": 69,
+        "brick": 14,
+        "star": 63,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 101,
+        "straw": 78,
+        "brick": 12,
+        "star": 102,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 61,
+        "straw": 87,
+        "brick": 9,
+        "star": 117,
+        "diamond": 30,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 97,
+        "straw": 104,
+        "brick": 31,
+        "star": 165,
+        "diamond": 56,
+        "gold": 14,
+        "units": 12
+      }
+    ]
+  },
+  {
+    "level": 4,
+    "seed": 731,
+    "interval": 20,
+    "result": "win",
+    "seconds": 350,
+    "core": 286,
+    "builds": 5,
+    "upgrades": 5,
+    "peak": 13,
+    "starBlocked": 33,
+    "attempts": 176,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 93,
+        "straw": 44,
+        "brick": 41,
+        "star": 24,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 49,
+        "brick": 5,
+        "star": 54,
+        "diamond": 6,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 3,
+        "wood": 115,
+        "straw": 67,
+        "brick": 14,
+        "star": 63,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 100,
+        "straw": 76,
+        "brick": 11,
+        "star": 102,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 34,
+        "straw": 84,
+        "brick": 8,
+        "star": 117,
+        "diamond": 30,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 20,
+        "straw": 80,
+        "brick": 11,
+        "star": 165,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 4,
+    "seed": 922,
+    "interval": 20,
+    "result": "win",
+    "seconds": 356,
+    "core": 318,
+    "builds": 5,
+    "upgrades": 5,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 178,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 93,
+        "straw": 44,
+        "brick": 41,
+        "star": 24,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 112,
+        "straw": 50,
+        "brick": 6,
+        "star": 54,
+        "diamond": 6,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 3,
+        "wood": 117,
+        "straw": 69,
+        "brick": 14,
+        "star": 63,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 101,
+        "straw": 77,
+        "brick": 11,
+        "star": 102,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 61,
+        "straw": 87,
+        "brick": 9,
+        "star": 117,
+        "diamond": 30,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 51,
+        "straw": 55,
+        "brick": 9,
+        "star": 165,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 4,
+    "seed": 42,
+    "interval": 20,
+    "result": "win",
+    "seconds": 350,
+    "core": 316,
+    "builds": 5,
+    "upgrades": 5,
+    "peak": 13,
+    "starBlocked": 32,
+    "attempts": 175,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 93,
+        "straw": 44,
+        "brick": 41,
+        "star": 24,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 111,
+        "straw": 48,
+        "brick": 5,
+        "star": 54,
+        "diamond": 6,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 3,
+        "wood": 116,
+        "straw": 67,
+        "brick": 14,
+        "star": 63,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 100,
+        "straw": 76,
+        "brick": 11,
+        "star": 102,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 59,
+        "straw": 85,
+        "brick": 8,
+        "star": 117,
+        "diamond": 30,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 76,
+        "straw": 79,
+        "brick": 14,
+        "star": 165,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 4,
+    "seed": 2026,
+    "interval": 20,
+    "result": "win",
+    "seconds": 352,
+    "core": 350,
+    "builds": 5,
+    "upgrades": 5,
+    "peak": 13,
+    "starBlocked": 33,
+    "attempts": 176,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 93,
+        "straw": 44,
+        "brick": 41,
+        "star": 24,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 122,
+        "straw": 74,
+        "brick": 76,
+        "star": 79,
+        "diamond": 8,
+        "gold": 2,
+        "units": 11
+      },
+      {
+        "wave": 3,
+        "wood": 116,
+        "straw": 68,
+        "brick": 14,
+        "star": 63,
+        "diamond": 11,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 4,
+        "wood": 101,
+        "straw": 77,
+        "brick": 11,
+        "star": 102,
+        "diamond": 15,
+        "gold": 2,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 35,
+        "straw": 85,
+        "brick": 8,
+        "star": 117,
+        "diamond": 30,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 26,
+        "straw": 70,
+        "brick": 16,
+        "star": 165,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "seed": 17,
+    "interval": 20,
+    "result": "win",
+    "seconds": 410,
+    "core": 662,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 14,
+    "starBlocked": 17,
+    "attempts": 206,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 118,
+        "straw": 67,
+        "brick": 72,
+        "star": 48,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 128,
+        "straw": 70,
+        "brick": 10,
+        "star": 70,
+        "diamond": 6,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 3,
+        "wood": 120,
+        "straw": 113,
+        "brick": 14,
+        "star": 73,
+        "diamond": 9,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 113,
+        "straw": 130,
+        "brick": 18,
+        "star": 66,
+        "diamond": 13,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 71,
+        "straw": 81,
+        "brick": 13,
+        "star": 107,
+        "diamond": 31,
+        "gold": 5,
+        "units": 12
+      },
+      {
+        "wave": 6,
+        "wood": 25,
+        "straw": 126,
+        "brick": 15,
+        "star": 255,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "seed": 731,
+    "interval": 20,
+    "result": "win",
+    "seconds": 401,
+    "core": 821,
+    "builds": 8,
+    "upgrades": 7,
+    "peak": 16,
+    "starBlocked": 18,
+    "attempts": 201,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 115,
+        "straw": 62,
+        "brick": 68,
+        "star": 48,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 119,
+        "straw": 53,
+        "brick": 19,
+        "star": 67,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 107,
+        "straw": 87,
+        "brick": 40,
+        "star": 70,
+        "diamond": 9,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 105,
+        "straw": 83,
+        "brick": 16,
+        "star": 121,
+        "diamond": 13,
+        "gold": 2,
+        "units": 15
+      },
+      {
+        "wave": 5,
+        "wood": 96,
+        "straw": 82,
+        "brick": 49,
+        "star": 82,
+        "diamond": 29,
+        "gold": 5,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 82,
+        "straw": 56,
+        "brick": 7,
+        "star": 182,
+        "diamond": 50,
+        "gold": 11,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "seed": 922,
+    "interval": 20,
+    "result": "win",
+    "seconds": 408,
+    "core": 793,
+    "builds": 8,
+    "upgrades": 5,
+    "peak": 16,
+    "starBlocked": 20,
+    "attempts": 205,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 117,
+        "straw": 68,
+        "brick": 73,
+        "star": 48,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 108,
+        "straw": 58,
+        "brick": 21,
+        "star": 74,
+        "diamond": 6,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 3,
+        "wood": 53,
+        "straw": 75,
+        "brick": 21,
+        "star": 96,
+        "diamond": 7,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 38,
+        "straw": 108,
+        "brick": 7,
+        "star": 99,
+        "diamond": 11,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 31,
+        "straw": 124,
+        "brick": 46,
+        "star": 75,
+        "diamond": 29,
+        "gold": 5,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 27,
+        "straw": 100,
+        "brick": 40,
+        "star": 215,
+        "diamond": 54,
+        "gold": 13,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "seed": 42,
+    "interval": 20,
+    "result": "win",
+    "seconds": 404,
+    "core": 460,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 18,
+    "attempts": 203,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 115,
+        "straw": 63,
+        "brick": 69,
+        "star": 48,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 119,
+        "straw": 53,
+        "brick": 18,
+        "star": 72,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 103,
+        "straw": 85,
+        "brick": 35,
+        "star": 75,
+        "diamond": 9,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 77,
+        "straw": 130,
+        "brick": 41,
+        "star": 72,
+        "diamond": 13,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 5,
+        "wood": 72,
+        "straw": 182,
+        "brick": 8,
+        "star": 80,
+        "diamond": 29,
+        "gold": 5,
+        "units": 13
+      },
+      {
+        "wave": 6,
+        "wood": 93,
+        "straw": 291,
+        "brick": 66,
+        "star": 256,
+        "diamond": 56,
+        "gold": 14,
+        "units": 11
+      }
+    ]
+  },
+  {
+    "level": 5,
+    "seed": 2026,
+    "interval": 20,
+    "result": "win",
+    "seconds": 396,
+    "core": 798,
+    "builds": 7,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 21,
+    "attempts": 198,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 118,
+        "straw": 68,
+        "brick": 73,
+        "star": 48,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 125,
+        "straw": 41,
+        "brick": 11,
+        "star": 68,
+        "diamond": 6,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 3,
+        "wood": 106,
+        "straw": 39,
+        "brick": 18,
+        "star": 74,
+        "diamond": 9,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 49,
+        "straw": 34,
+        "brick": 23,
+        "star": 112,
+        "diamond": 11,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 73,
+        "straw": 41,
+        "brick": 13,
+        "star": 82,
+        "diamond": 29,
+        "gold": 5,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 51,
+        "straw": 74,
+        "brick": 11,
+        "star": 234,
+        "diamond": 54,
+        "gold": 13,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "seed": 17,
+    "interval": 20,
+    "result": "win",
+    "seconds": 430,
+    "core": 535,
+    "builds": 8,
+    "upgrades": 7,
+    "peak": 17,
+    "starBlocked": 37,
+    "attempts": 216,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 120,
+        "straw": 70,
+        "brick": 75,
+        "star": 39,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 123,
+        "straw": 59,
+        "brick": 25,
+        "star": 55,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 110,
+        "straw": 92,
+        "brick": 47,
+        "star": 90,
+        "diamond": 9,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 87,
+        "straw": 74,
+        "brick": 14,
+        "star": 105,
+        "diamond": 11,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 5,
+        "wood": 104,
+        "straw": 94,
+        "brick": 59,
+        "star": 113,
+        "diamond": 31,
+        "gold": 6,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 89,
+        "straw": 55,
+        "brick": 20,
+        "star": 129,
+        "diamond": 55,
+        "gold": 14,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "seed": 731,
+    "interval": 20,
+    "result": "win",
+    "seconds": 418,
+    "core": 527,
+    "builds": 8,
+    "upgrades": 5,
+    "peak": 16,
+    "starBlocked": 36,
+    "attempts": 209,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 120,
+        "straw": 71,
+        "brick": 75,
+        "star": 39,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 123,
+        "straw": 61,
+        "brick": 25,
+        "star": 55,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 77,
+        "straw": 65,
+        "brick": 27,
+        "star": 70,
+        "diamond": 7,
+        "gold": 0,
+        "units": 15
+      },
+      {
+        "wave": 4,
+        "wood": 82,
+        "straw": 99,
+        "brick": 14,
+        "star": 65,
+        "diamond": 11,
+        "gold": 1,
+        "units": 16
+      },
+      {
+        "wave": 5,
+        "wood": 90,
+        "straw": 151,
+        "brick": 45,
+        "star": 113,
+        "diamond": 31,
+        "gold": 6,
+        "units": 14
+      },
+      {
+        "wave": 6,
+        "wood": 98,
+        "straw": 201,
+        "brick": 17,
+        "star": 169,
+        "diamond": 59,
+        "gold": 16,
+        "units": 15
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "seed": 922,
+    "interval": 20,
+    "result": "lose",
+    "seconds": 418,
+    "core": 0,
+    "builds": 6,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 38,
+    "attempts": 209,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 119,
+        "straw": 69,
+        "brick": 73,
+        "star": 39,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 123,
+        "straw": 61,
+        "brick": 25,
+        "star": 55,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 116,
+        "straw": 107,
+        "brick": 48,
+        "star": 90,
+        "diamond": 9,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 4,
+        "wood": 106,
+        "straw": 149,
+        "brick": 14,
+        "star": 85,
+        "diamond": 13,
+        "gold": 2,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 80,
+        "straw": 194,
+        "brick": 22,
+        "star": 113,
+        "diamond": 31,
+        "gold": 6,
+        "units": 14
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "seed": 42,
+    "interval": 20,
+    "result": "win",
+    "seconds": 419,
+    "core": 480,
+    "builds": 8,
+    "upgrades": 5,
+    "peak": 16,
+    "starBlocked": 35,
+    "attempts": 210,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 118,
+        "straw": 68,
+        "brick": 73,
+        "star": 39,
+        "diamond": 3,
+        "gold": 1,
+        "units": 13
+      },
+      {
+        "wave": 2,
+        "wood": 123,
+        "straw": 60,
+        "brick": 25,
+        "star": 55,
+        "diamond": 6,
+        "gold": 1,
+        "units": 15
+      },
+      {
+        "wave": 3,
+        "wood": 82,
+        "straw": 74,
+        "brick": 27,
+        "star": 70,
+        "diamond": 7,
+        "gold": 0,
+        "units": 15
+      },
+      {
+        "wave": 4,
+        "wood": 80,
+        "straw": 96,
+        "brick": 9,
+        "star": 65,
+        "diamond": 11,
+        "gold": 1,
+        "units": 16
+      },
+      {
+        "wave": 5,
+        "wood": 94,
+        "straw": 142,
+        "brick": 45,
+        "star": 113,
+        "diamond": 31,
+        "gold": 6,
+        "units": 13
+      },
+      {
+        "wave": 6,
+        "wood": 106,
+        "straw": 151,
+        "brick": 15,
+        "star": 169,
+        "diamond": 59,
+        "gold": 16,
+        "units": 13
+      }
+    ]
+  },
+  {
+    "level": 6,
+    "seed": 2026,
+    "interval": 20,
+    "result": "win",
+    "seconds": 411,
+    "core": 379,
+    "builds": 8,
+    "upgrades": 5,
+    "peak": 15,
+    "starBlocked": 37,
+    "attempts": 206,
+    "snapshots": [
+      {
+        "wave": 1,
+        "wood": 120,
+        "straw": 70,
+        "brick": 75,
+        "star": 39,
+        "diamond": 3,
+        "gold": 1,
+        "units": 12
+      },
+      {
+        "wave": 2,
+        "wood": 129,
+        "straw": 45,
+        "brick": 17,
+        "star": 55,
+        "diamond": 6,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 3,
+        "wood": 117,
+        "straw": 52,
+        "brick": 36,
+        "star": 90,
+        "diamond": 9,
+        "gold": 1,
+        "units": 14
+      },
+      {
+        "wave": 4,
+        "wood": 76,
+        "straw": 33,
+        "brick": 40,
+        "star": 75,
+        "diamond": 11,
+        "gold": 0,
+        "units": 14
+      },
+      {
+        "wave": 5,
+        "wood": 104,
+        "straw": 49,
+        "brick": 29,
+        "star": 113,
+        "diamond": 31,
+        "gold": 6,
+        "units": 15
+      },
+      {
+        "wave": 6,
+        "wood": 121,
+        "straw": 41,
+        "brick": 10,
+        "star": 169,
+        "diamond": 59,
+        "gold": 16,
+        "units": 15
+      }
+    ]
+  }
+]

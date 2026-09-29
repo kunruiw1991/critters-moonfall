@@ -81,3 +81,8 @@ header{gap:12px;padding:8px 12px}.brand{display:none}.resource{font-size:21px;ga
 @media(max-width:900px){header{gap:7px}.resource{font-size:17px}.resource b{font-size:15px}.base-health{max-width:70px}.head-actions{gap:4px}.head-actions button{width:36px}}
 @media(max-width:600px){header{flex-wrap:wrap;height:auto;min-height:72px;gap:5px 10px}.resource{font-size:16px}.head-actions{position:absolute;right:5px;top:8px}.resource:nth-child(5){margin-right:85px}.dock-tabs{flex-basis:55px}.dock-tabs small{font-size:8px}}
 @media(max-height:650px){.build-card,.upgrade-card{height:154px}.build-card .cost{font-size:10px;min-height:42px}.dock-tabs button{height:57px}.menu-modes button{padding:6px 15px}}
+
+/* One persistent upgrade tool, after attack / defense / healing / production. */
+#upgradeTool{flex:0 0 114px;min-width:114px;margin-left:4px;height:170px;align-self:center}.upgrade-tool-icon{font-size:33px}#upgradeTool>b{font-size:11px}#upgradeTool .cost{font-size:11px}#upgradeTool.selected{background:#ffe6a5;color:#263c42}#upgradeTool.poor.selected{background:#564b37;color:#ffe2a1}.build-card[data-group]{border-top:4px solid var(--group-color)}
+@media(max-height:650px){#upgradeTool{height:154px}}
+@media(max-width:700px){#upgradeTool{min-width:98px;flex-basis:98px}.upgrade-tool-icon{font-size:28px}}
