@@ -1,5 +1,5 @@
-import {tiers} from './palace.mjs?v=19';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=19';
+import {tiers} from './palace.mjs?v=20';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=20';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:25,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -21,7 +21,7 @@ export const FOOTPRINTS={prism:[[0,0],[1,0],[0,1],[1,1]],rapid:[[0,0],[1,0]],shi
 export const unitCells=u=>(u.cells||FOOTPRINTS[u.type]||[[0,0]]).map(([dx,dy])=>({x:u.x+dx,y:u.y+dy}));
 export const distanceToUnit=(p,u)=>Math.min(...unitCells(u).map(c=>Math.hypot(p.x-c.x,p.y-c.y)));
 export const unitCount=(g,type)=>g.units.filter(u=>u.type===type&&u.hp>0).length;
-export const buildCost=(g,type)=>Object.fromEntries(MATERIALS.map(k=>[k,Math.max(0,Math.ceil((TYPES[type]?.[k]||0)*(1+.5*unitCount(g,type))*heatFactor(g)-1e-9))]));
+export const buildCost=(g,type)=>Object.fromEntries(MATERIALS.map(k=>[k,Math.max(0,Math.ceil((TYPES[type]?.[k]||0)*.5*(1+.5*unitCount(g,type))*heatFactor(g)-1e-9))]));
 export const buildReady=(g,type)=>!!TYPES[type]&&!g.over&&afford(g,buildCost(g,type));
 export const MATERIALS=['wood','straw','brick','star','blueStar','goldStar'];
 const recipes={sun:[15,0],rapid:[35,20],prism:[25,70],wall:[0,16],spring:[30,15],heal:[35,20],mill:[10,0],garden:[0,0],kiln:[25,5],boost:[30,35],shield:[20,55]};
@@ -67,7 +67,7 @@ export function canBuild(g,type,x,y){return buildReady(g,type)&&unitCells({type,
 
 export function build(g,type,x,y){if(!canBuild(g,type,x,y))return false;const cost=buildCost(g,type);pay(g,cost);const u=makeUnit(g,type,x,y);u.paidCost={...cost};g.units.push(u);g.totalBuilt++;g.effects.push({kind:'build',x,y,life:.8});return u}
 export function harvest(g,x,y){const i=g.trees.findIndex(t=>t.x===x&&t.y===y);if(i<0||g.over)return false;g.trees[i].hp--;g.wood=Math.min(1e9,g.wood+4);g.effects.push({kind:'wood',x,y,life:.7});if(g.trees[i].hp<=0)g.trees.splice(i,1);return true}
-export const UPGRADE_COST=Object.freeze({wood:25,straw:15,brick:15,star:20,blueStar:2,goldStar:1});
+export const UPGRADE_COST=Object.freeze({wood:13,straw:8,brick:8,star:10,blueStar:1,goldStar:1});
 export const upgradeCost=()=>({...UPGRADE_COST});
 export function upgrade(g,id){const u=g.units.find(u=>u.id===id);if(!u||u.level>=MAX_UNIT_LEVEL||g.over)return false;const cost=upgradeCost(u);if(!afford(g,cost))return false;pay(g,cost);const missing=u.maxHp-u.hp;u.level++;u.maxHp=Math.round(TYPES[u.type].hp*(1+.65*(u.level-1))*perk(g,'armor',.12));u.hp=u.maxHp-missing;return true}
 export function repair(g,id){const u=g.units.find(u=>u.id===id);if(!canRepair(g,u))return false;pay(g,repairCost);u.hp=Math.min(u.maxHp,u.hp+u.maxHp*.15);u.repairAt=g.time+8;return true}

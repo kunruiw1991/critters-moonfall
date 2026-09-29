@@ -140,3 +140,7 @@ Map 5 now has a crossable lava ring rather than impassable islands. Building on 
 ## v19 — cheaper sheep construction and more ordinary stars
 
 BabaChops base brick construction requirement drops from 10 to 5; production remains 0.5 brick/second. Existing Heat and duplicate-building price multipliers still apply. All ordinary enemy star drops, including the lava bonus, are doubled. Diamond and golden-star drops are unchanged; summoned mini zombies still drop no resources.
+
+## v20 — half-price construction and upgrades
+
+All six construction material requirements are multiplied by 0.5 before Heat and live duplicate multipliers, then rounded up to whole resources. The fixed upgrade recipe is halved and rounded up: 13 wood, 8 straw, 8 brick, 10 ordinary stars, 1 diamond, 1 golden star. Production, enemy drops, and existing resources are unchanged. Existing saves receive the new prices automatically.
