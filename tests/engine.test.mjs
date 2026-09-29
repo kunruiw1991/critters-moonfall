@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as E from '../engine.mjs';
 import {configureView,project,tileAt} from '../render.mjs';
 const fresh=()=>E.createGame();
-test('building charges once and rejects occupied, core and unaffordable cells',()=>{const g=fresh();const u=E.build(g,'wall',9,8);assert.ok(u);assert.equal(g.wood,115);assert.equal(E.build(g,'wall',9,8),false);assert.equal(g.wood,115);assert.equal(E.build(g,'wall',11,9),false);g.wood=0;assert.equal(E.build(g,'sun',10,10),false);assert.equal(g.star,35)});
+test('building charges once and rejects occupied, core and unaffordable cells',()=>{const g=fresh();const u=E.build(g,'wall',9,8);assert.ok(u);assert.equal(g.wood,115);assert.equal(E.build(g,'wall',9,8),false);assert.equal(g.wood,115);assert.equal(E.build(g,'wall',11,9),false);g.wood=0;assert.equal(E.build(g,'sun',10,10),false);assert.equal(g.star,60)});
 test('harvesting is finite and gives eight wood per tree',()=>{const g=fresh(),t=g.trees[0];const w=g.wood;assert.ok(E.harvest(g,t.x,t.y));assert.ok(E.harvest(g,t.x,t.y));assert.equal(E.harvest(g,t.x,t.y),false);assert.equal(g.wood,w+8)});
 test('upgrades cap at four; repair never exceeds max hp',()=>{const g=fresh();g.blueStar=g.goldStar=g.straw=g.brick=g.wood=g.star=999;const u=g.units[0];assert.ok(E.upgrade(g,u.id));assert.ok(E.upgrade(g,u.id));assert.ok(E.upgrade(g,u.id));assert.equal(E.upgrade(g,u.id),false);u.hp=u.maxHp-1;E.repair(g,u.id);assert.equal(u.hp,u.maxHp);assert.equal(E.repair(g,u.id),false)});
 test('wave cannot overlap and survival ends after six waves',()=>{const g=fresh();assert.ok(E.startWave(g));assert.equal(E.startWave(g),false);g.waveActive=false;g.wave=6;assert.equal(E.startWave(g),false)});
