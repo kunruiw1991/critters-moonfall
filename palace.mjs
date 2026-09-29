@@ -6,7 +6,7 @@ export function buy(p,k){if(!GOODS[k]||p.upgrades[k]>=3||p.moons<price(p,k))retu
 export function scoreGame(g){
  const clamp=(v,max)=>Math.max(0,Math.min(max,v));
  const buildings=Math.round(g.units.filter(u=>u.hp>0).reduce((sum,u)=>sum+24*(u.hp/u.maxHp)*(1+.65*(u.level-1)),0));
- const resources=Math.round(((g.wood||0)+(g.straw||0)+(g.brick||0)*2+(g.star||0)*2)/6);
+ const resources=Math.round(((g.wood||0)+(g.straw||0)+(g.brick||0)*2+(g.star||0)*2+(g.blueStar||0)*10+(g.goldStar||0)*30)/6);
  const health=Math.round(clamp(g.core/g.maxCore*160,160)),clear=g.over==='win'?120:0;
  const pace=g.over==='win'?Math.max(0,180-Math.floor((g.time||0)/3)):0;
  const challenge=g.over==='win'?Math.max(1,g.level)*25:0;
