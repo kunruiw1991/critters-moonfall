@@ -136,3 +136,7 @@ Map 5 now has a crossable lava ring rather than impassable islands. Building on 
 - Resource storage raised from999 to1e9 so the former wallet cap does not impose a practical building-count cap. Saved old resources and buildings are preserved; missing Heat defaults0.
 - Main-menu touch Heat slider shows exact multipliers; HUD/save preview display Heat. Build cards show current live count and current recipe, no cap denominator.
 - 66 reference-policy stress runs: Heat0 30/30 wins across six maps/five seeds, with no palace boosts; map2 uses slow15s decisions. Heat5 and10 each0/18 wins with the same unchanged easy-policy build order. These high-Heat results demonstrate increased challenge, not proof of impossibility or a validated winning strategy. Numeric tests verify every Heat step and no mutation of fixed upgrade cost.
+
+## v19 — cheaper sheep construction and more ordinary stars
+
+BabaChops base brick construction requirement drops from 10 to 5; production remains 0.5 brick/second. Existing Heat and duplicate-building price multipliers still apply. All ordinary enemy star drops, including the lava bonus, are doubled. Diamond and golden-star drops are unchanged; summoned mini zombies still drop no resources.

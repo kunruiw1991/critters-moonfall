@@ -1,5 +1,5 @@
-import {tiers} from './palace.mjs?v=18';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=18';
+import {tiers} from './palace.mjs?v=19';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=19';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:25,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -24,7 +24,7 @@ export const unitCount=(g,type)=>g.units.filter(u=>u.type===type&&u.hp>0).length
 export const buildCost=(g,type)=>Object.fromEntries(MATERIALS.map(k=>[k,Math.max(0,Math.ceil((TYPES[type]?.[k]||0)*(1+.5*unitCount(g,type))*heatFactor(g)-1e-9))]));
 export const buildReady=(g,type)=>!!TYPES[type]&&!g.over&&afford(g,buildCost(g,type));
 export const MATERIALS=['wood','straw','brick','star','blueStar','goldStar'];
-const recipes={sun:[15,0],rapid:[35,20],prism:[25,70],wall:[0,16],spring:[30,15],heal:[35,20],mill:[10,0],garden:[0,0],kiln:[25,10],boost:[30,35],shield:[20,55]};
+const recipes={sun:[15,0],rapid:[35,20],prism:[25,70],wall:[0,16],spring:[30,15],heal:[35,20],mill:[10,0],garden:[0,0],kiln:[25,5],boost:[30,35],shield:[20,55]};
 for(const [type,t]of Object.entries(TYPES)){[t.straw,t.brick]=recipes[type];t.blueStar=['prism','shield'].includes(type)?2:type==='boost'?1:0;t.goldStar=type==='prism'?1:0}
 export const afford=(g,c)=>g.creative||MATERIALS.every(k=>(g[k]||0)>=(c[k]||0));
 function pay(g,c){if(!g.creative)for(const k of MATERIALS)g[k]=(g[k]||0)-(c[k]||0)}
@@ -41,7 +41,7 @@ export const ENEMIES={
  mini:{icon:'🐾',color:'#f4d372',size:.55,hp:.35,speed:.95,damage:4,armor:0},
  boss:{icon:'🌘',color:'#9678ad',size:2.5,hp:20,speed:.38,damage:34,armor:.75}
 };
-export const enemyLoot=e=>{const base={zombie:[4,0,0],runner:[6,0,0],brute:[10,2,1],spitter:[8,1,0],bomber:[8,1,0],healer:[8,1,0],summoner:[10,2,1],mini:[0,0,0],boss:[30,4,3]}[e.kind]||[0,0,0];return{star:base[0]+(e.ignited&&e.kind!=='mini'?1:0),blueStar:base[1],goldStar:base[2]}};
+export const enemyLoot=e=>{const base={zombie:[4,0,0],runner:[6,0,0],brute:[10,2,1],spitter:[8,1,0],bomber:[8,1,0],healer:[8,1,0],summoner:[10,2,1],mini:[0,0,0],boss:[30,4,3]}[e.kind]||[0,0,0];return{star:2*(base[0]+(e.ignited&&e.kind!=='mini'?1:0)),blueStar:base[1],goldStar:base[2]}};
 export const enemyReward=e=>enemyLoot(e).star;
 export const PREP_SECONDS=20,BREAK_SECONDS=12;
 const perk=(g,key,step)=>1+(g.upgrades?.[key]||0)*step;
