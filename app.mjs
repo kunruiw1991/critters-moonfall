@@ -1,10 +1,10 @@
-import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=20';
-import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=20';
-import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=20';
-import {createGestures,configureView} from './camera.mjs?v=20';
-import {TYPES,buildCost,clampHeat,heatFactor,MAX_UNIT_LEVEL,FOOTPRINTS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=20';
-import {render,project,tileAt} from './render.mjs?v=20';
-import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=20';
+import {GOODS,readPalace,price,buy,settle} from './palace.mjs?v=21';
+import {readPieces,awardPiece,drawStoryEnding} from './story.mjs?v=21';
+import {LEVELS,levelInfo,musicForLevel,makeTerrain} from './levels.mjs?v=21';
+import {createGestures,configureView} from './camera.mjs?v=21';
+import {TYPES,buildCost,clampHeat,heatFactor,MAX_UNIT_LEVEL,FOOTPRINTS,unitCount,buildReady,MATERIALS,afford,canRepair,repairCost,CENTER,finishCreative,nextLevel,levelNumber,createGame,update,build,harvest,unitAt,upgrade,upgradeCost,repair,sell,restoreMoon,moonCost,startWave,sunburst,save,load} from './engine.mjs?v=21';
+import {render,project,tileAt} from './render.mjs?v=21';
+import {drawIntro,INTRO_SECONDS} from './intro.mjs?v=21';
 const $=id=>document.getElementById(id),canvas=$('canvas'),ctx=canvas.getContext('2d'),intro=$('intro'),ic=intro.getContext('2d');
 let unlocked=1,chosenLevel=1;try{unlocked=levelNumber(Number(localStorage.getItem('moonfall-unlocked')))}catch{}
 let pieces=[];try{pieces=readPieces(localStorage.getItem('moonfall-pieces'),unlocked)}catch{}
@@ -53,7 +53,7 @@ function syncShop(){
  $('moonWallet').textContent=`🌙 ${palace.moons}`;
  for(const [k,b] of Object.entries(shopCards)){const n=palace.upgrades[k];b.disabled=n>=3||palace.moons<price(palace,k);b.textContent=`${GOODS[k].icon} ${'★'.repeat(n)}${'☆'.repeat(3-n)}\n${GOODS[k].effect}\n${n>=3?'✓':`🌙 ${price(palace,k)}`}`}
 }
-const shopCards={};for(const [k,item]of Object.entries(GOODS)){const b=document.createElement('button');b.setAttribute('aria-label',`${item.label}，永久强化，下次开局生效`);b.onclick=()=>{if(buy(palace,k)){savePalace();syncShop();tone(700,.15)}};$('shopItems').append(b);shopCards[k]=b}
+const shopCards={};for(const [k,item]of Object.entries(GOODS)){const b=document.createElement('button');b.setAttribute('aria-label',`${item.label}，本轮强化，下关生效`);b.onclick=()=>{if(buy(palace,k)){savePalace();syncShop();tone(700,.15)}};$('shopItems').append(b);shopCards[k]=b}
 function openShop(next=null){shopNext=next;$('palace').hidden=false;$('shopGo').hidden=!next;syncShop()}
 $('openPalace').onclick=()=>openShop();$('menuPalace').onclick=()=>openShop();
 $('shopClose').onclick=()=>{$('palace').hidden=true};
@@ -66,7 +66,15 @@ function celebration(now){const seconds=(now-celebrationStart)/1000;if(game.over
  const colors=['#ffe49b','#b8edc0','#f7b4d4','#a8dfff','#d2b7ff'];for(let i=0;i<110;i++){const t=seconds*(30+i%37),x=((i*137.5)%w)+Math.sin(seconds+i)*22,y=(i*79+t)%(h+40)-20;partyCtx.save();partyCtx.translate(x,y);partyCtx.rotate(seconds*(i%2?1:-1)+i);partyCtx.fillStyle=colors[i%5];partyCtx.fillRect(-4,-7,8,14);partyCtx.restore()}
  for(let j=0;j<4;j++){const t=(seconds+j*.61)%2.6,r=t*75,alpha=Math.max(0,1-t/2.6);partyCtx.globalAlpha=alpha;partyCtx.fillStyle=colors[j];const x=w*(.15+j*.23),y=h*(.22+(j%2)*.16);for(let i=0;i<16;i++){const a=i*Math.PI/8;partyCtx.beginPath();partyCtx.arc(x+Math.cos(a)*r,y+Math.sin(a)*r,3,0,Math.PI*2);partyCtx.fill()}}partyCtx.globalAlpha=1;
 }
-$('start').addEventListener('click',()=>begin());$('skipIntro').addEventListener('click',finishIntro);$('pause').addEventListener('click',pause);$('resume').addEventListener('click',pause);$('restart').addEventListener('click',menu);
+function newGame(){
+ // A new campaign must not inherit reward records or fragments from a previous run.
+ pieces=[];awardedPiece=0;palace=readPalace(null);shopNext=null;
+ if(!creative){chosenLevel=1;unlocked=1}
+ $('palace').hidden=true;savePalace();syncShop();
+ try{localStorage.setItem('moonfall-pieces','[]');localStorage.setItem('moonfall-unlocked',String(unlocked));localStorage.removeItem('moonfall-save')}catch{}
+ begin();sync();persist();
+}
+$('start').addEventListener('click',newGame);$('skipIntro').addEventListener('click',finishIntro);$('pause').addEventListener('click',pause);$('resume').addEventListener('click',pause);$('restart').addEventListener('click',menu);
 $('survival').addEventListener('click',()=>{creative=false;levelPicker();$('survival').classList.add('selected');$('creative').classList.remove('selected');$('survival').setAttribute('aria-pressed','true');$('creative').setAttribute('aria-pressed','false')});$('creative').addEventListener('click',()=>{creative=true;levelPicker();$('creative').classList.add('selected');$('survival').classList.remove('selected');$('creative').setAttribute('aria-pressed','true');$('survival').setAttribute('aria-pressed','false')});
 $('resumeSave').addEventListener('click',()=>{let saved;try{saved=load(localStorage.getItem('moonfall-save'))}catch{}if(!saved||saved.over)return;upgradeMode=false;game=saved;creative=game.creative;chosenLevel=game.level;selectedHeat=game.heat;syncHeat();selectedType=null;hover=null;view.panX=view.panY=view.rotation=0;view.zoom=1;gestures.reset();$('selection').hidden=true;phase='game';$('menu').hidden=true;$('pause').disabled=false;last=performance.now();acc=0;selectedId=null;musicPlay();sync();update(game,0);if(game.over)finish()});
 $('sound').addEventListener('click',()=>{if(!muted&&music.paused&&phase==='game'){musicPlay();return}muted=!muted;music.muted=muted;$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-label',muted?'开启声音':'关闭声音');if(!muted&&phase==='game')musicPlay()});

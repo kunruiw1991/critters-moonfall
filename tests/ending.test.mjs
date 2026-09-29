@@ -20,5 +20,24 @@ test('winning opens celebration, freezes combat, unlocks harder level and starts
  await import('../app.mjs?finale-test');
  const final=createGame({level:6});final.wave=6;final.cleared=6;data.set('moonfall-save',save(final));el('resumeSave').click();
  assert.deepEqual(JSON.parse(data.get('moonfall-pieces')),[1,2,3,4,5,6]);assert.equal(el('storyScene').hidden,false);assert.equal(el('party').hidden,true);assert.equal(el('endingTrophy').hidden,true);assert.equal(el('harder').hidden,false);assert.equal(el('endingStats').textContent,'🌙 6/6　🧩 +1');
+
+ // New Game resets a previously completed campaign, including stale best rewards.
+ el('endingHome').click();el('start').click();el('skipIntro').click();
+ assert.deepEqual(JSON.parse(data.get('moonfall-pieces')),[]);
+ assert.deepEqual(JSON.parse(data.get('moonfall-palace')),{moons:0,upgrades:{attack:0,armor:0,harvest:0,supplies:0},best:{}});
+ assert.equal(data.get('moonfall-unlocked'),'1');assert.equal(JSON.parse(data.get('moonfall-save')).level,1);
+ assert.equal(el('moonProgress').textContent,'🌙 0/6');
+ let priorMoons=0;
+ for(let level=1;level<=6;level++){
+   const round=JSON.parse(data.get('moonfall-save'));assert.equal(round.level,level);
+   round.wave=6;round.cleared=6;round.waveActive=false;round.remaining=0;round.enemies=[];
+   data.set('moonfall-save',save(round));el('resumeSave').click();
+   assert.equal(el('endingStats').textContent,`🌙 ${level}/6　🧩 +1`);
+   assert.equal(el('moonProgress').textContent,`🌙 ${level}/6`);
+   assert.deepEqual(JSON.parse(data.get('moonfall-pieces')),Array.from({length:level},(_,i)=>i+1));
+   const rewards=JSON.parse(data.get('moonfall-palace'));assert.ok(rewards.moons>priorMoons);priorMoons=rewards.moons;
+   if(level<6){el('harder').click();el('shopGo').click();await import(`../app.mjs?campaign-reload-${level}`);el('resumeSave').click();assert.equal(el('moonProgress').textContent,`🌙 ${level}/6`)}
+ }
+ assert.equal(el('party').hidden,true);assert.equal(el('endingTrophy').hidden,true);
  }finally{globalThis.setTimeout=originalTimer}
 });

@@ -144,3 +144,7 @@ BabaChops base brick construction requirement drops from 10 to 5; production rem
 ## v20 — half-price construction and upgrades
 
 All six construction material requirements are multiplied by 0.5 before Heat and live duplicate multipliers, then rounded up to whole resources. The fixed upgrade recipe is halved and rounded up: 13 wood, 8 straw, 8 brick, 10 ordinary stars, 1 diamond, 1 golden star. Production, enemy drops, and existing resources are unchanged. Existing saves receive the new prices automatically.
+
+## v21 — reset campaign progression on New Game
+
+New Game clears fragment ownership, palace wallet, purchased upgrades, and per-level reward bests. Survival starts at level 1 with 0/6 fragments and resets campaign unlocks. Retry, next level, and Load Game preserve progression. Clear the old active save immediately, including during the intro. The palace now labels upgrades as lasting for the current campaign.
