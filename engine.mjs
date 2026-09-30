@@ -1,5 +1,5 @@
-import {tiers} from './palace.mjs?v=22';
-import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=22';
+import {tiers} from './palace.mjs?v=23';
+import {levelInfo,makeTerrain,walkable,movementFactor,encounterKind,buildableTerrain,spawnGates,terrainAt} from './levels.mjs?v=23';
 export const W=22,H=18,CENTER={x:11,y:9};
 export const TYPES={
  sun:{name:'DogDay',icon:'☀️',portrait:'critter_05_dogday',role:'⚔️',wood:25,star:15,hp:140,range:4.3,damage:15,period:1.1,color:'#f4bc64'},
@@ -8,7 +8,7 @@ export const TYPES={
  wall:{name:'Mikey',icon:'🧱',portrait:'mikey',role:'🛡️',wood:10,star:0,hp:220,color:'#8bc98b'},
  spring:{name:'Hoppy',icon:'🌀',portrait:'critter_07_hoppy',role:'⚔️',wood:15,star:10,hp:100,range:1.8,damage:28,period:2.6,splash:1.8,color:'#8fddbc'},
  heal:{name:'Bobby BearHug',icon:'💗',portrait:'critter_06_bobby',role:'💗',wood:15,star:20,hp:115,range:3.4,heal:4,color:'#efa7bc'},
- mill:{name:'Bubba',icon:'🪵',portrait:'critter_09_bubba',role:'⚙️',wood:35,star:0,hp:110,produceWood:.65,color:'#9ebfe9'},
+ mill:{name:'Bubba',icon:'🪵',portrait:'critter_09_bubba',role:'⚙️',wood:17.5,star:0,hp:110,produceWood:.65,color:'#9ebfe9'},
  garden:{name:'PickyPiggy',icon:'🌾',portrait:'critter_11_picky',role:'🌾↑',wood:25,star:0,hp:95,produceStraw:1.05,produceStar:0,color:'#edb8bb'},
  kiln:{name:'BabaChops',icon:'🧱',portrait:'critter_12_babachops',role:'🧱↑',wood:20,star:0,hp:100,produceBrick:.5,color:'#cc9672'},
  boost:{name:'JJ',icon:'⚡',portrait:'jj',role:'⚡',wood:10,star:25,hp:130,range:3.6,boost:1.25,color:'#c6e299'},

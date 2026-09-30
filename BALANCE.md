@@ -152,3 +152,7 @@ New Game clears fragment ownership, palace wallet, purchased upgrades, and per-l
 ## v22 — smoother first three stages
 
 Stages 1–2 waves 5–6 gain 20% enemy HP and attack, plus dedicated brute and bomber slots; wave 6 also adds a summoner. Enemy counts, spawn intervals and breaks stay unchanged. Stage 3 waves 1–2 now contain only ordinary zombies and runners, with the first brute in wave 3 and spitter in wave 4. Later stages keep their existing encounters.
+
+## v23 — cheaper Bubba construction
+
+Halve Bubba mill wood recipe from 35 to 17.5 before the existing half-price, Heat and duplicate multipliers. At Heat 0 with three starter mills, the next mill costs 22 wood instead of 44. Resource charges remain whole numbers, rounded up.
